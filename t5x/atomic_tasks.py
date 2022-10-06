@@ -39,7 +39,7 @@ First define atomic gen task
 
 split_map_gen = {'train':'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/tsv/v_2_1/train_gen.tsv',
             'test':'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/tsv/v_2_1/test_gen.tsv',
-            'dev':'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/tsv/v_2_1/val_gen.tsv'}
+            'validation':'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/tsv/v_2_1/val_gen.tsv'}
 
 
 def atomic_preprocessor_gen(ds):
@@ -86,7 +86,7 @@ then define critic task
 
 split_map_critic = {'train':'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/tsv/v_2_1/train_critic.tsv',
             'test':'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/tsv/v_2_1/test_critic.tsv',
-            'dev':'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/tsv/v_2_1/val_critic.tsv'}
+            'validation':'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/tsv/v_2_1/val_critic.tsv'}
 
 
 def atomic_preprocessor_critic(ds):
