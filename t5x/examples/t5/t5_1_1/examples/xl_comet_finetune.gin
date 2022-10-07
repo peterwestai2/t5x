@@ -7,7 +7,7 @@ from t5x import partitioning
 from t5x import utils
 import t5x.atomic_tasks as atomic_tasks # to get my mixture
 
-include "t5x/examples/t5/t5_1_1/small.gin"
+include "t5x/examples/t5/t5_1_1/xl.gin"
 include "t5x/configs/runs/finetune.gin"
 
 MIXTURE_OR_TASK_NAME = "atomic_mix"
