@@ -10,6 +10,8 @@ import t5x.atomic_tasks as atomic_tasks # to get my mixture
 include "t5x/examples/t5/t5_1_1/xl.gin"
 include "t5x/configs/runs/finetune.gin"
 
+BATCH_SIZE = 512
+
 MIXTURE_OR_TASK_NAME = "atomic_mix"
 TASK_FEATURE_LENGTHS = {"inputs": 128, "targets": 128}
 TRAIN_STEPS = 1_020_000  # 1000000 pre-trained steps + 20000 fine-tuning steps.
