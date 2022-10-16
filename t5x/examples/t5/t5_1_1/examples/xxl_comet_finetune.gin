@@ -10,10 +10,10 @@ import t5x.atomic_tasks as atomic_tasks # to get my mixture
 include "t5x/examples/t5/t5_1_1/xxl.gin"
 include "t5x/configs/runs/finetune.gin"
 
-BATCH_SIZE = 64
+BATCH_SIZE = 256
 
 MIXTURE_OR_TASK_NAME = "atomic_mix"
-TASK_FEATURE_LENGTHS = {"inputs": 64, "targets": 64}
+TASK_FEATURE_LENGTHS = {"inputs": 32, "targets": 16}
 TRAIN_STEPS = 1_020_000  # 1000000 pre-trained steps + 20000 fine-tuning steps.
 DROPOUT_RATE = 0.0
 INITIAL_CHECKPOINT_PATH = "gs://t5-data/pretrained_models/t5x/t5_1_1_xxl/checkpoint_1000000"
