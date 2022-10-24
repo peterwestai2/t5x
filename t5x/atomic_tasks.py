@@ -151,7 +151,7 @@ First, register the gen_v1 task
 '''
 split_map = {'train':'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/tsv/v_2_2/test_gen.tsv',
             'test':'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/tsv/v_2_2/test_gen.tsv',
-            'dev':'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/tsv/v_2_2/test_gen.tsv'}
+            'validation':'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/tsv/v_2_2/test_gen.tsv'}
 
 
 vocabulary = t5.data.get_default_vocabulary()
@@ -191,7 +191,7 @@ register critic_v1 task
 '''
 split_map = {'train':'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/tsv/v_2_2/test_critic.tsv',
             'test':'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/tsv/v_2_2/test_critic.tsv',
-            'dev':'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/tsv/v_2_2/test_critic.tsv'}
+            'validation':'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/tsv/v_2_2/test_critic.tsv'}
 
 
 
