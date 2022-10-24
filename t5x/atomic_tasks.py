@@ -133,3 +133,122 @@ seqio.MixtureRegistry.add(
   "atomic_mix",
   [("atomic_critic", 1), ("atomic_gen", 10)]
 )
+
+
+
+
+'''
+
+NEXT Aim to define the v1 version of the tasks (masking)
+
+'''
+
+
+'''
+
+First, register the gen_v1 task
+
+'''
+split_map = {'train':'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/tsv/v_2_2/test_gen.tsv',
+            'test':'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/tsv/v_2_2/test_gen.tsv',
+            'dev':'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/tsv/v_2_2/test_gen.tsv'}
+
+
+vocabulary = t5.data.get_default_vocabulary()
+
+
+DEFAULT_OUTPUT_FEATURES = {
+    "inputs":
+        seqio.Feature(
+            vocabulary=vocabulary, add_eos=True),
+    "targets":
+        seqio.Feature(
+            vocabulary=vocabulary, add_eos=True)
+}
+
+
+seqio.TaskRegistry.add(
+    "atomic_gen_v1",
+    seqio.TextLineDataSource(split_map,skip_header_lines=1,),
+    preprocessors=[
+        
+        functools.partial(
+          t5.data.preprocessors.parse_tsv,
+          #field_names=['head' ,'relation' ,'tail']),
+
+          field_names=['head', 'relation', 'tail', 'split', 'rec_0.6', 'rec_0.9', 'rec_0.5', 'rec_0.7', 'rec_0.8', 'p_valid_model', 'inference', 'valid', 'readable_relation', 'inputs', 'targets']),
+        seqio.preprocessors.tokenize, seqio.preprocessors.append_eos
+    ],
+    output_features=DEFAULT_OUTPUT_FEATURES)
+
+
+
+
+'''
+
+register critic_v1 task
+
+'''
+split_map = {'train':'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/tsv/v_2_2/test_critic.tsv',
+            'test':'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/tsv/v_2_2/test_critic.tsv',
+            'dev':'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/tsv/v_2_2/test_critic.tsv'}
+
+
+
+
+vocabulary = t5.data.get_default_vocabulary()
+
+
+DEFAULT_OUTPUT_FEATURES = {
+    "inputs":
+        seqio.Feature(
+            vocabulary=vocabulary, add_eos=True),
+    "targets":
+        seqio.Feature(
+            vocabulary=vocabulary, add_eos=True)
+}
+
+def atomic_preprocessor_critic(ds):
+
+  def to_inputs_and_targets(ex):
+    src = tf.strings.join(['give a plausibility score: ', ex['head'],' ',ex['readable_relation'], ex['inference'] ])
+    tgt = ex['valid']
+    
+    return {
+        'inputs':
+             tf.strings.join(
+                 [(src)]),
+        'targets': 
+        tf.strings.join(
+                 [(tgt)]),
+    }
+  return ds.map(to_inputs_and_targets, 
+                num_parallel_calls=tf.data.experimental.AUTOTUNE)
+
+
+seqio.TaskRegistry.add(
+    "atomic_critic_v1",
+    seqio.TextLineDataSource(split_map,skip_header_lines=1,),
+    preprocessors=[
+        
+        functools.partial(
+          t5.data.preprocessors.parse_tsv,
+          #field_names=['head' ,'relation' ,'tail']),
+
+          field_names=['head', 'relation', 'tail', 'split', 'rec_0.6', 'rec_0.9', 'rec_0.5', 'rec_0.7', 'rec_0.8', 'p_valid_model', 'inference', 'valid', 'readable_relation', 'inputs', 'targets']),
+        seqio.preprocessors.tokenize, seqio.preprocessors.append_eos
+    ],
+    output_features=DEFAULT_OUTPUT_FEATURES)
+
+
+
+'''
+
+Finally, define a mixture between the two tasks
+
+'''
+
+seqio.MixtureRegistry.add(
+  "atomic_mix_v1",
+  [("atomic_critic_v1", 1), ("atomic_gen_v1", 8)]
+)
