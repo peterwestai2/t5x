@@ -19,20 +19,13 @@ EVAL_OUTPUT_DIR = %gin.REQUIRED
 DROPOUT_RATE = 0.0  # unused boilerplate
 
 
+
+
 eval_script.evaluate:
   model = %MODEL  # imported from separate gin file
   dataset_cfg = @utils.DatasetConfig()
-  partitioner = @partitioning.PjitPartitioner()
   restore_checkpoint_cfg = @utils.RestoreCheckpointConfig()
   output_dir = %EVAL_OUTPUT_DIR
-  inference_evaluator_cls = @seqio.Evaluator
-
-
-seqio.Evaluator:
-  logger_cls = [@seqio.PyLoggingLogger, @seqio.TensorBoardLogger, @seqio.JSONLogger]
-  num_examples = None  # Use all examples in the dataset.
-  use_memory_cache = True
-
 
 utils.DatasetConfig:
   mixture_or_task_name = %MIXTURE_OR_TASK_NAME
@@ -43,8 +36,7 @@ utils.DatasetConfig:
   seed = 42
 
 partitioning.PjitPartitioner.num_partitions = 8
-models.EncoderDecoderModel.predict_batch_with_aux.num_decodes = 4
 
 utils.RestoreCheckpointConfig:
-  path = %INITIAL_CHECKPOINT_PATH
+  path = %CHECKPOINT_PATH
   mode = 'specific'
