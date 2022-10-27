@@ -23,6 +23,7 @@ DROPOUT_RATE = 0.0  # unused boilerplate
 
 
 eval_script.evaluate:
+  partitioner = @partitioning.PjitPartitioner()
   model = %MODEL  # imported from separate gin file
   dataset_cfg = @utils.DatasetConfig()
   restore_checkpoint_cfg = @utils.RestoreCheckpointConfig()
