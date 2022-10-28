@@ -45,7 +45,7 @@ seqio.TaskRegistry.add(
           t5.data.preprocessors.parse_tsv,
           #field_names=['head' ,'relation' ,'tail']),
 
-          field_names=['head', 'relation', 'tail', 'split', 'rec_0.6', 'rec_0.9', 'rec_0.5', 'rec_0.7', 'rec_0.8', 'p_valid_model', 'inference', 'valid', 'readable_relation', 'inputs', 'targets']),
+          field_names=['head', 'relation', 'tail', 'split', 'rec_0.6', 'rec_0.9', 'rec_0.5', 'rec_0.7', 'rec_0.8', 'p_valid_model', 'inference', 'valid', 'readable_relation','readable_relation', 'inputs', 'targets']),
         seqio.preprocessors.tokenize, seqio.preprocessors.append_eos
     ],
     output_features=DEFAULT_OUTPUT_FEATURES,
@@ -67,7 +67,7 @@ seqio.TaskRegistry.add(
           t5.data.preprocessors.parse_tsv,
           #field_names=['head' ,'relation' ,'tail']),
 
-          field_names=['head', 'relation', 'tail', 'split', 'rec_0.6', 'rec_0.9', 'rec_0.5', 'rec_0.7', 'rec_0.8', 'p_valid_model', 'inference', 'valid', 'readable_relation', 'inputs', 'targets']),
+          field_names=['head', 'relation', 'tail', 'split', 'rec_0.6', 'rec_0.9', 'rec_0.5', 'rec_0.7', 'rec_0.8', 'p_valid_model', 'inference', 'valid', 'readable_relation','readable_relation', 'inputs', 'targets']),
         seqio.preprocessors.tokenize, seqio.preprocessors.append_eos
     ],
     output_features=DEFAULT_OUTPUT_FEATURES,
@@ -89,7 +89,7 @@ seqio.TaskRegistry.add(
           t5.data.preprocessors.parse_tsv,
           #field_names=['head' ,'relation' ,'tail']),
 
-          field_names=['head', 'relation', 'tail', 'split', 'rec_0.6', 'rec_0.9', 'rec_0.5', 'rec_0.7', 'rec_0.8', 'p_valid_model', 'inference', 'valid', 'readable_relation', 'inputs', 'targets']),
+          field_names=['head', 'relation', 'tail', 'split', 'rec_0.6', 'rec_0.9', 'rec_0.5', 'rec_0.7', 'rec_0.8', 'p_valid_model', 'inference', 'valid', 'readable_relation','readable_relation', 'inputs', 'targets']),
         seqio.preprocessors.tokenize, seqio.preprocessors.append_eos
     ],
     output_features=DEFAULT_OUTPUT_FEATURES,
