@@ -11,6 +11,7 @@ import seqio
 import functools
 import tensorflow as tf
 import random
+from t5.evaluation import metrics
 
 
 
@@ -47,7 +48,8 @@ seqio.TaskRegistry.add(
           field_names=['head', 'relation', 'tail', 'split', 'rec_0.6', 'rec_0.9', 'rec_0.5', 'rec_0.7', 'rec_0.8', 'p_valid_model', 'inference', 'valid', 'readable_relation', 'inputs', 'targets']),
         seqio.preprocessors.tokenize, seqio.preprocessors.append_eos
     ],
-    output_features=DEFAULT_OUTPUT_FEATURES)
+    output_features=DEFAULT_OUTPUT_FEATURES,
+    metric_fns=[metrics.accuracy,metrics.bleu])
 
 
 ### 
@@ -68,7 +70,8 @@ seqio.TaskRegistry.add(
           field_names=['head', 'relation', 'tail', 'split', 'rec_0.6', 'rec_0.9', 'rec_0.5', 'rec_0.7', 'rec_0.8', 'p_valid_model', 'inference', 'valid', 'readable_relation', 'inputs', 'targets']),
         seqio.preprocessors.tokenize, seqio.preprocessors.append_eos
     ],
-    output_features=DEFAULT_OUTPUT_FEATURES)
+    output_features=DEFAULT_OUTPUT_FEATURES,
+    metric_fns=[metrics.accuracy,metrics.bleu])
 
 
 ### 
@@ -89,7 +92,8 @@ seqio.TaskRegistry.add(
           field_names=['head', 'relation', 'tail', 'split', 'rec_0.6', 'rec_0.9', 'rec_0.5', 'rec_0.7', 'rec_0.8', 'p_valid_model', 'inference', 'valid', 'readable_relation', 'inputs', 'targets']),
         seqio.preprocessors.tokenize, seqio.preprocessors.append_eos
     ],
-    output_features=DEFAULT_OUTPUT_FEATURES)
+    output_features=DEFAULT_OUTPUT_FEATURES,
+    metric_fns=[metrics.accuracy])
 
 seqio.MixtureRegistry.add(
   "atomic_eval_mix_v1",
