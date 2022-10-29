@@ -93,7 +93,7 @@ seqio.TaskRegistry.add(
         seqio.preprocessors.tokenize, seqio.preprocessors.append_eos
     ],
     output_features=DEFAULT_OUTPUT_FEATURES,
-    metric_fns=[metrics.accuracy])
+    metric_fns=[metrics.accuracy,metrics.bleu])
 
 seqio.MixtureRegistry.add(
   "atomic_eval_mix_v1",
