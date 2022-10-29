@@ -6,6 +6,7 @@ from t5x import models
 from t5x import partitioning
 from t5x import utils
 import t5x.atomic_eval_tasks_v1 as atomic_eval_tasks_v1 # to get my mixture
+import seqio
 
 include "t5x/examples/t5/t5_1_1/xl.gin"
 
@@ -28,6 +29,11 @@ eval_script.evaluate:
   dataset_cfg = @utils.DatasetConfig()
   restore_checkpoint_cfg = @utils.RestoreCheckpointConfig()
   output_dir = %EVAL_OUTPUT_DIR
+  
+seqio.Evaluator:
+  logger_cls = [@seqio.PyLoggingLogger, @seqio.TensorBoardLogger, @seqio.JSONLogger]
+  num_examples = None  # Use all examples in the dataset.
+  use_memory_cache = True
 
 utils.DatasetConfig:
   mixture_or_task_name = %MIXTURE_OR_TASK_NAME
