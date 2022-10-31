@@ -5,7 +5,7 @@ from t5.data import mixtures
 from t5x import partitioning
 from t5x import utils
 
-include "t5x/examples/t5/t5_1_1/base.gin"  # defines %MODEL.
+include "t5x/examples/t5/t5_1_1/xl.gin"  # defines %MODEL.
 
 CHECKPOINT_PATH = %gin.REQUIRED  # passed via commandline
 EVAL_OUTPUT_DIR = %gin.REQUIRED  # passed via commandline
