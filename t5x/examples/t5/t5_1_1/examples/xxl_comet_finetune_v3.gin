@@ -6,6 +6,7 @@ from t5x import models
 from t5x import partitioning
 from t5x import utils
 import t5x.atomic_tasks as atomic_tasks # to get my mixture
+import seqio
 
 include "t5x/examples/t5/t5_1_1/xxl.gin"
 include "t5x/configs/runs/finetune.gin"
