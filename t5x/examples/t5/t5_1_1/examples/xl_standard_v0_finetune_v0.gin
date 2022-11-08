@@ -8,6 +8,7 @@ from t5x import utils
 #import t5x.atomic_tasks as atomic_tasks # to get my mixture
 import t5x.standard_v0_atomic_task as standard_task
 import seqio
+from t5x import trainer
 
 include "t5x/examples/t5/t5_1_1/xl.gin"
 include "t5x/configs/runs/finetune.gin"
