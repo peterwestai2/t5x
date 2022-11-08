@@ -17,7 +17,7 @@ BATCH_SIZE = 512
 MIXTURE_OR_TASK_NAME = "standard_v0_atomic_mix"
 TASK_FEATURE_LENGTHS = {"inputs": 128, "targets": 128}
 TRAIN_STEPS = 1_050_000  # 1000000 pre-trained steps + 50000 fine-tuning steps.
-DROPOUT_RATE = 0.0
+DROPOUT_RATE = 0.1
 INITIAL_CHECKPOINT_PATH = "gs://t5-data/pretrained_models/t5x/t5_1_1_xl/checkpoint_1000000"
 # `LOSS_NORMALIZING_FACTOR`: When fine-tuning a model that was pre-trained
 # using Mesh Tensorflow (e.g. the public T5 / mT5 / ByT5 models), this should be
@@ -33,6 +33,14 @@ train_script.train:
   train_dataset_cfg = @train/utils.DatasetConfig()
   train_eval_dataset_cfg = @train_eval/utils.DatasetConfig()
   infer_eval_dataset_cfg = @infer_eval/utils.DatasetConfig()
+  
+trainer.Trainer:
+  num_microbatches = None
+  learning_rate_fn = @utils.create_learning_rate_scheduler()
+utils.create_learning_rate_scheduler:
+  factors = 'constant'
+  base_learning_rate = 0.0001
+  warmup_steps = 1000
   
   
 infer_eval/utils.DatasetConfig:
