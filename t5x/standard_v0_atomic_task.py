@@ -368,7 +368,8 @@ seqio.TaskRegistry.add(
 
 seqio.MixtureRegistry.add(
   "standard_v0_atomic_mix",
-  [("standard_v0_atomic_10X_labelled", 1),("standard_v0_atomic_10X_unlabelled", 8),("standard_v0_atomic_2020",8)]
+  [("standard_v0_atomic_2020",8)]
+  #[("standard_v0_atomic_10X_labelled", 1),("standard_v0_atomic_10X_unlabelled", 8),("standard_v0_atomic_2020",8)]
 )
 
 
