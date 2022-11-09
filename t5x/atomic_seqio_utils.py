@@ -120,7 +120,7 @@ def fill_missing_fields(ds, fields):
         return ex
     return ds.map(fill_missing_fields_, num_parallel_calls=tf.data.experimental.AUTOTUNE)
 
-def mask_each_field(ds, field_mask_options, fields,fields_to_sentinels):
+def mask_each_field(ds, field_mask_options, fields,fields_to_sentinels, p_full = 0.5):
     
     def mask_each_field_(ex):
         field_mask_options_ = tf.constant(field_mask_options, dtype=ex['inputs'].dtype)
@@ -131,7 +131,7 @@ def mask_each_field(ds, field_mask_options, fields,fields_to_sentinels):
         
         for i, field in enumerate(fields):
             ex['{}_mask_option'.format(field)] = field_mask_option[i]
-            mask, anti_mask = generate_token_mask_skd_v0(ex[field],field_mask_option[i])
+            mask, anti_mask = generate_token_mask_skd_v0(ex[field],field_mask_option[i], p_full=p_full)
             ex['{}_mask'.format(field)] = mask
             ex['{}_antimask'.format(field)] = anti_mask
             ex['{}_inputs'.format(field)] = noise_span_to_sentinel_single(ex[field], mask, fields_to_sentinels[field])
@@ -162,3 +162,7 @@ def combine_inputs(ds, fields):
 
         return ex
     return ds.map(combine_inputs_, num_parallel_calls=tf.data.experimental.AUTOTUNE)   
+
+
+
+
