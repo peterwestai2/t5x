@@ -277,10 +277,10 @@ for dataset in datasets:
         
         
 seqio.MixtureRegistry.add(
-  "standard_v1_train_mix",
+  "standard_v2_train_mix",
   train_tasks)
 
 seqio.MixtureRegistry.add(
-  "standard_v1_eval_mix",
+  "standard_v2_eval_mix",
   train_tasks + eval_tasks)
     
