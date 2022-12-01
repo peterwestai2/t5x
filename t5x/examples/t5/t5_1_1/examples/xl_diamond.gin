@@ -13,7 +13,7 @@ import t5x.make_diamond_task as task_
 include "t5x/examples/t5/t5_1_1/xl.gin"
 include "t5x/configs/runs/finetune.gin"
 
-BATCH_SIZE = 64
+BATCH_SIZE = 512
 
 MIXTURE_OR_TASK_NAME = "diamond_pretraining_v1"
 TASK_FEATURE_LENGTHS = {"inputs": 512, "targets": 128}
