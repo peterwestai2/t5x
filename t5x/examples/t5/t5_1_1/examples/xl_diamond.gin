@@ -56,7 +56,7 @@ infer_eval/utils.DatasetConfig:
   mixture_or_task_name = %MIXTURE_OR_TASK_NAME
   task_feature_lengths = %TASK_FEATURE_LENGTHS
   split = 'validation'
-  batch_size = 32
+  batch_size = 512
   shuffle = False
   seed = 42
   use_cached = %USE_CACHED_TASKS
