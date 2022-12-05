@@ -266,7 +266,7 @@ input_files = {'train':'gs://peterw-tpu-eu/QA_data/skd2_data/cosmosqa/train.tsv'
             'test':'gs://peterw-tpu-eu/QA_data/skd2_data/cosmosqa/dev.tsv',
             'validation':'gs://peterw-tpu-eu/QA_data/skd2_data/cosmosqa/dev.tsv'}
 
-tsv_fields = ['premise', 'hypothesis','question','plausibility','relevance']
+tsv_fields = ['premise','question', 'hypothesis','plausibility','relevance']
 
 nonempty_fields = ['premise', 'hypothesis','question','plausibility','relevance']
 
@@ -287,7 +287,7 @@ input_files = {'train':'gs://peterw-tpu-eu/QA_data/skd2_data/socialiqa/train.tsv
             'test':'gs://peterw-tpu-eu/QA_data/skd2_data/socialiqa/dev.tsv',
             'validation':'gs://peterw-tpu-eu/QA_data/skd2_data/socialiqa/dev.tsv'}
 
-tsv_fields = ['premise', 'hypothesis','question','plausibility','relevance']
+tsv_fields = ['premise','question', 'hypothesis','plausibility','relevance']
 
 nonempty_fields = ['premise', 'hypothesis','question','plausibility','relevance']
 
@@ -308,7 +308,7 @@ input_files = {'train':'gs://peterw-tpu-eu/QA_data/skd2_data/csqa2/train.tsv',
             'test':'gs://peterw-tpu-eu/QA_data/skd2_data/csqa2/dev.tsv',
             'validation':'gs://peterw-tpu-eu/QA_data/skd2_data/csqa2/dev.tsv'}
 
-tsv_fields = ['premise', 'hypothesis','question','plausibility','relevance']
+tsv_fields = ['premise','question', 'hypothesis','plausibility','relevance']
 
 nonempty_fields = ['premise', 'hypothesis','question','plausibility','relevance']
 
