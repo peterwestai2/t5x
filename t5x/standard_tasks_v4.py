@@ -194,7 +194,7 @@ file_template = 'gs://peterw-tpu-eu/standard_data_v1/annotated_{}.tsv'
 input_files = {'train':file_template.format('train'),
             'test':file_template.format('test'),
             'validation':file_template.format('val')}
-nonempty_fields = tsv_fields
+nonempty_fields = tsv_fields = ['premise','hypothesis','question','reasonable','expected','invalid','format','offensive'] 
 share = 1
 datasets.append({'input_files': input_files, 'dataset_name':dataset_name,
                 'tsv_fields':tsv_fields,
