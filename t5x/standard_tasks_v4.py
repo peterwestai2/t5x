@@ -75,7 +75,7 @@ def build_task(input_files, task_name, tsv_fields, mask_fields=None, p_full=0.5)
     # i.e. don't mask any fields not in mask_fields
     # also, require at least one mask
     mask_field_inds = [fields.index(field) for field in mask_fields]
-    field_mask_options =  [list(l) for l in itertools.product([0, 1], repeat=5) if (sum([l[ind] for ind in mask_field_inds]) == sum(l)) and sum(l) > 0]
+    field_mask_options =  [list(l) for l in itertools.product([0, 1], repeat=len(fields)) if (sum([l[ind] for ind in mask_field_inds]) == sum(l)) and sum(l) > 0]
 
     
     # define the task
