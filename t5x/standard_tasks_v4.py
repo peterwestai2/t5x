@@ -137,7 +137,7 @@ Datasets -- ATOMIC-10X
 
 dataset_name = 'ATOMIC10X'
 
-file_template = 'gs://peterw-tpu-eu/standard_data_v1/unannotated_ATOMIC10X_{}.tsv'
+file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/standard_data_v1/unannotated_ATOMIC10X_{}.tsv'
 input_files = {'train':file_template.format('train'),
             'test':file_template.format('test'),
             'validation':file_template.format('val')}
@@ -155,7 +155,7 @@ Datasets -- ATOMIC2020
 
 dataset_name = 'ATOMIC2020'
 
-file_template = 'gs://peterw-tpu-eu/standard_data_v1/unannotated_ATOMIC2020_{}.tsv'
+file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/standard_data_v1/unannotated_ATOMIC2020_{}.tsv'
 input_files = {'train':file_template.format('train'),
             'test':file_template.format('test'),
             'validation':file_template.format('val')}
@@ -173,7 +173,7 @@ Datasets -- generated
 
 dataset_name = 'generated'
 
-file_template = 'gs://peterw-tpu-eu/standard_data_v1/unannotated_generated2023_{}.tsv'
+file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/standard_data_v1/unannotated_generated2023_{}.tsv'
 input_files = {'train':file_template.format('train'),
             'test':file_template.format('test'),
             'validation':file_template.format('val')}
@@ -198,7 +198,7 @@ masking the generative fields.
 
 dataset_name = 'annotated'
 
-file_template = 'gs://peterw-tpu-eu/standard_data_v1/annotated_{}.tsv'
+file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/standard_data_v1/annotated_{}.tsv'
 input_files = {'train':file_template.format('train'),
             'test':file_template.format('test'),
             'validation':file_template.format('val')}
@@ -221,7 +221,7 @@ masking the generative fields.
 
 dataset_name = 'critic'
 
-file_template = 'gs://peterw-tpu-eu/standard_data_v1/annotated_{}.tsv'
+file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/standard_data_v1/annotated_{}.tsv'
 input_files = {'train':file_template.format('train'),
             'test':file_template.format('test'),
             'validation':file_template.format('val')}
