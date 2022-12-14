@@ -13,11 +13,11 @@ from t5x import trainer
 include "t5x/examples/t5/t5_1_1/xxl.gin"
 include "t5x/configs/runs/finetune.gin"
 
-BATCH_SIZE = 512
+BATCH_SIZE = 256
 
 MIXTURE_OR_TASK_NAME = "standard_v4_train_mix"
 TASK_FEATURE_LENGTHS = {"inputs": 128, "targets": 128}
-TRAIN_STEPS = 1_050_000  # 1000000 pre-trained steps + 50000 fine-tuning steps.
+TRAIN_STEPS = 1_100_000  # 1000000 pre-trained steps + 50000 fine-tuning steps.
 DROPOUT_RATE = 0.1
 INITIAL_CHECKPOINT_PATH = "gs://t5-data/pretrained_models/t5x/t5_1_1_xxl/checkpoint_1000000"
 # `LOSS_NORMALIZING_FACTOR`: When fine-tuning a model that was pre-trained
@@ -48,7 +48,7 @@ train/utils.DatasetConfig:
   split = 'train'
 
 train_eval/utils.DatasetConfig:
-  mixture_or_task_name = "standard_v4_eval_mix"
+  mixture_or_task_name = "standard_v4_train_mix" #"standard_v4_eval_mix"
   split = 'validation'
 
 
