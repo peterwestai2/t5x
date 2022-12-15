@@ -19,7 +19,7 @@ MIXTURE_OR_TASK_NAME = "train_critic"
 TASK_FEATURE_LENGTHS = {"inputs": 128, "targets": 128}
 TRAIN_STEPS = 1_050_000  # 1000000 pre-trained steps + 10000 fine-tuning steps.
 DROPOUT_RATE = 0.1
-INITIAL_CHECKPOINT_PATH = "t5-data/pretrained_models/t5x/t5_1_1_lm100k_xxl/checkpoint_1100000"
+INITIAL_CHECKPOINT_PATH = "gs://t5-data/pretrained_models/t5x/t5_1_1_lm100k_xxl/checkpoint_1100000"
 # `LOSS_NORMALIZING_FACTOR`: When fine-tuning a model that was pre-trained
 # using Mesh Tensorflow (e.g. the public T5 / mT5 / ByT5 models), this should be
 # set to `pretraining batch_size` * `target_token_length`. For T5 and T5.1.1:
