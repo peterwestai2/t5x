@@ -2,6 +2,7 @@ from atomic_seqio_utils import key_prefixes, fill_missing_fields, mask_each_fiel
 
 from t5.data import preprocessors
 import t5
+from t5.evaluation import metrics
 import seqio
 import functools
 import tensorflow as tf
@@ -63,7 +64,7 @@ for field in fields:
                                         vocabulary=vocabulary, add_eos=False),})
 
 
-def build_task(input_files, task_name, tsv_fields, mask_fields=None, p_full=0.5, field_mask_options = None):
+def build_task(input_files, task_name, tsv_fields, mask_fields=None, p_full=0.5, field_mask_options = None, metric_fns = []):
     
 
     # if no option given, allow masking of all fields
@@ -112,6 +113,7 @@ def build_task(input_files, task_name, tsv_fields, mask_fields=None, p_full=0.5,
             preprocessors.rekey, key_map={key:key for key in DEFAULT_OUTPUT_FEATURES.keys()}),
 
     ],
+    metric_fns=metric_fns,
     output_features=DEFAULT_OUTPUT_FEATURES)
     
     
@@ -233,7 +235,8 @@ dataset = {'input_files': input_files, 'dataset_name':dataset_name,
                 'share':share}
 
 task_name = 'train_{}'.format(dataset['dataset_name'])
-build_task(dataset['input_files'], task_name,dataset['tsv_fields'],dataset['nonempty_fields'], field_mask_options=[[0,0,0,1,1,1,1,1]])
+build_task(dataset['input_files'], task_name,dataset['tsv_fields'],dataset['nonempty_fields'], field_mask_options=[[0,0,0,1,1,1,1,1]],
+          metric_fns =[metrics.bleu,metrics.rouge,metrics.accuracy])
 
 """
 
