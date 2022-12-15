@@ -45,6 +45,16 @@ vocabulary = t5.data.get_default_vocabulary()
 fields = list(fields_to_sentinels.keys())
 
 
+DEFAULT_OUTPUT_FEATURES_FINAL = {
+    "inputs":
+        seqio.Feature(
+            vocabulary=vocabulary, add_eos=True),
+    "targets":
+        seqio.Feature(
+            vocabulary=vocabulary, add_eos=True),
+    
+}
+
 DEFAULT_OUTPUT_FEATURES = {
     "inputs":
         seqio.Feature(
@@ -118,7 +128,7 @@ def build_task(input_files, task_name, tsv_fields, mask_fields=None, p_full=0.5,
     ],
     metric_fns=metric_fns,
     #output_features=DEFAULT_OUTPUT_FEATURES)
-    output_features=['inputs','targets'])
+    output_features=DEFAULT_OUTPUT_FEATURES_FINAL)
     
     
     
