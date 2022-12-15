@@ -250,7 +250,7 @@ dataset = {'input_files': input_files, 'dataset_name':dataset_name,
 
 task_name = 'train_{}'.format(dataset['dataset_name'])
 build_task(dataset['input_files'], task_name,dataset['tsv_fields'],dataset['nonempty_fields'], field_mask_options=[[0,0,0,1,1,1,1,1]],
-          metric_fns =[metrics.bleu,metrics.rouge,metrics.accuracy])
+          metric_fns =[metrics.bleu,metrics.rouge])
 
 """
 
