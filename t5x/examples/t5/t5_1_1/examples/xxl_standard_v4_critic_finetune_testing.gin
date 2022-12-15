@@ -31,7 +31,7 @@ train_script.train:
   eval_period = 200
   
 utils.SaveCheckpointConfig:
-  period = 2000  # checkpoint frequency
+  period = 5000  # checkpoint frequency
   
 train_script.train:
   train_dataset_cfg = @train/utils.DatasetConfig()
