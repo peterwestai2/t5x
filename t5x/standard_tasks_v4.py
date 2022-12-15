@@ -109,8 +109,11 @@ def build_task(input_files, task_name, tsv_fields, mask_fields=None, p_full=0.5,
         seqio.preprocessors.append_eos,
         
         # remove some extraneous features
+        #functools.partial(
+        #    preprocessors.rekey, key_map={key:key for key in DEFAULT_OUTPUT_FEATURES.keys()}),
+        # remove some extraneous features
         functools.partial(
-            preprocessors.rekey, key_map={key:key for key in DEFAULT_OUTPUT_FEATURES.keys()}),
+            preprocessors.rekey, key_map={key:key for key in ['inputs','targets']}),
 
     ],
     metric_fns=metric_fns,
