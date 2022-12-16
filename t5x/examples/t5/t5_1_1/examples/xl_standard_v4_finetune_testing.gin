@@ -59,7 +59,7 @@ infer_eval/utils.DatasetConfig:
   batch_size = 64
   shuffle = False
   seed = 42
-  use_cached = False #%USE_CACHED_TASKS
+  use_cached = %USE_CACHED_TASKS
   pack = False
   module = %MIXTURE_OR_TASK_MODULE
 
