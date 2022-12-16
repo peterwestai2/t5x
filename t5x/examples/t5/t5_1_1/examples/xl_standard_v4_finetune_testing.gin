@@ -65,5 +65,5 @@ infer_eval/utils.DatasetConfig:
 
 seqio.Evaluator:
   logger_cls = [@seqio.PyLoggingLogger, @seqio.TensorBoardLogger, @seqio.JSONLogger]
-  num_examples = None  # Use all examples in the dataset.
+  num_examples = 10000  # Use all examples in the dataset.
   use_memory_cache = True
