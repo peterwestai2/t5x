@@ -107,7 +107,7 @@ def build_task(input_files, task_name, tsv_fields, mask_fields=None, p_full=0.5,
     
         # tokenize 
         #seqio.preprocessors.tokenize,
-        functools.partial(seqio.preprocessors.tokenize_impl,
+        functools.partial(seqio.preprocessors.tokenize,
                           output_features=DEFAULT_OUTPUT_FEATURES, 
                           copy_pretokenized=False, 
                           with_eos=False),
