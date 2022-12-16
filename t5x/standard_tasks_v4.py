@@ -131,8 +131,8 @@ def build_task(input_files, task_name, tsv_fields, mask_fields=None, p_full=0.5,
 
     ],
     metric_fns=metric_fns,
-    output_features=DEFAULT_OUTPUT_FEATURES)
-    #output_features=DEFAULT_OUTPUT_FEATURES_FINAL)
+    #output_features=DEFAULT_OUTPUT_FEATURES)
+    output_features=DEFAULT_OUTPUT_FEATURES_FINAL)
     
     
     
