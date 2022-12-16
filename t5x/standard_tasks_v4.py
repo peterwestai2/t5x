@@ -352,7 +352,7 @@ First, generate training tasks
 '''
 for dataset in datasets:
     task_name = 'train_{}'.format(dataset['dataset_name'])
-    build_task(dataset['input_files'], task_name,dataset['tsv_fields'],dataset['nonempty_fields'])
+    build_task(dataset['input_files'], task_name,dataset['tsv_fields'],dataset['nonempty_fields'], metric_fns =[metrics.bleu,metrics.rouge])
     train_tasks.append( (task_name, dataset['share']) )
     
     
