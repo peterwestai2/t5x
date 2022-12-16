@@ -74,6 +74,31 @@ for field in fields:
                                         vocabulary=vocabulary, add_eos=False),})
 
 
+    
+    
+def my_tokenize(dataset: tf.data.Dataset) -> tf.data.Dataset:
+  """Encode output features with specified vocabularies.
+  Passes through other features unchanged. Optionally passes through copy
+  of original features with "_pretokenized" suffix added to the key.
+  When `with_eos` is True and input features are ranked > 1, then an EOS is
+  appended only to the last item of each 1-D sequence.
+  Args:
+    dataset: a tf.data.Dataset of examples to tokenize.
+    output_features: a dict of Feature objects; their vocabulary attribute will
+      be used to tokenize the specified features.
+    copy_pretokenized: bool, whether to pass through copies of original features
+      with "_pretokenized" suffix added to the key.
+    with_eos: bool, whether to append EOS to the end of the sequence.
+  Returns:
+    a tf.data.Dataset
+  """
+  tokenize_fn = functools.partial(
+      seqio.preprocessors.tokenize_impl,
+      output_features=DEFAULT_OUTPUT_FEATURES,
+      copy_pretokenized=False,
+      with_eos=False)
+  return seqio.utils.map_over_dataset(fn=tokenize_fn)(dataset)
+    
 def build_task(input_files, task_name, tsv_fields, mask_fields=None, p_full=0.5, field_mask_options = None, metric_fns = []):
     
 
@@ -91,6 +116,8 @@ def build_task(input_files, task_name, tsv_fields, mask_fields=None, p_full=0.5,
         field_mask_options =  [list(l) for l in itertools.product([0, 1], repeat=len(fields)) if (sum([l[ind] for ind in mask_field_inds]) == sum(l)) and sum(l) > 0]
 
     
+
+    
     # define the task
     seqio.TaskRegistry.add(
     task_name,
@@ -106,11 +133,8 @@ def build_task(input_files, task_name, tsv_fields, mask_fields=None, p_full=0.5,
         functools.partial(key_prefixes, fields=fields),
     
         # tokenize 
-        #seqio.preprocessors.tokenize,
-        functools.partial(seqio.preprocessors.tokenize,
-                          output_features=DEFAULT_OUTPUT_FEATURES, 
-                          copy_pretokenized=False, 
-                          with_eos=False),
+        my_tokenize,
+
         
         # use random masking to generate inputs/targets for each field (similar to T5 objective)
         functools.partial(mask_each_field, 
