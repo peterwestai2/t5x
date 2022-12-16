@@ -106,7 +106,11 @@ def build_task(input_files, task_name, tsv_fields, mask_fields=None, p_full=0.5,
         functools.partial(key_prefixes, fields=fields),
     
         # tokenize 
-        seqio.preprocessors.tokenize,
+        #seqio.preprocessors.tokenize,
+        functools.partial(seqio.tokenize_impl,
+                          output_features=output_features, 
+                          copy_pretokenized=False, 
+                          with_eos=False),
         
         # use random masking to generate inputs/targets for each field (similar to T5 objective)
         functools.partial(mask_each_field, 
