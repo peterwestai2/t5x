@@ -13,11 +13,11 @@ from t5x import trainer
 include "t5x/examples/t5/t5_1_1/xl.gin"
 include "t5x/configs/runs/finetune.gin"
 
-BATCH_SIZE = 512
+BATCH_SIZE = 64
 
 MIXTURE_OR_TASK_NAME = "standard_v4_train_mix"
 TASK_FEATURE_LENGTHS = {"inputs": 128, "targets": 128}
-TRAIN_STEPS = 1_050_000  # 1000000 pre-trained steps + 50000 fine-tuning steps.
+TRAIN_STEPS = 1_100_000  # 1000000 pre-trained steps + 50000 fine-tuning steps.
 DROPOUT_RATE = 0.1
 INITIAL_CHECKPOINT_PATH = "gs://t5-data/pretrained_models/t5x/t5_1_1_xl/checkpoint_1000000"
 # `LOSS_NORMALIZING_FACTOR`: When fine-tuning a model that was pre-trained
@@ -36,11 +36,11 @@ train_script.train:
   infer_eval_dataset_cfg = @infer_eval/utils.DatasetConfig()
   
 trainer.Trainer:
-  num_microbatches = None
+  num_microbatches = 16
   learning_rate_fn = @utils.create_learning_rate_scheduler()
 utils.create_learning_rate_scheduler:
   factors = 'constant'
-  base_learning_rate = 0.00002
+  base_learning_rate = 0.00001
   warmup_steps = 1000
   
 train/utils.DatasetConfig:
@@ -65,5 +65,5 @@ infer_eval/utils.DatasetConfig:
 
 seqio.Evaluator:
   logger_cls = [@seqio.PyLoggingLogger, @seqio.TensorBoardLogger, @seqio.JSONLogger]
-  num_examples = 10000  # Use all examples in the dataset.
+  num_examples = 3000  # Use all examples in the dataset.
   use_memory_cache = True
