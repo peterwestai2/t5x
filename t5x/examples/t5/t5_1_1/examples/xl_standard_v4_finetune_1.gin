@@ -28,7 +28,7 @@ LOSS_NORMALIZING_FACTOR = 233472
 
 
 train_script.train:
-  eval_period = 10
+  eval_period = 500
   
 train_script.train:
   train_dataset_cfg = @train/utils.DatasetConfig()
