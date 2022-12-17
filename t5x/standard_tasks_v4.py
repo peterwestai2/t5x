@@ -63,7 +63,7 @@ for field in fields:
                                         vocabulary=vocabulary, add_eos=False),})
 
 
-def build_task(input_files, task_name, tsv_fields, mask_fields=None, p_full=0.5, field_mask_options = None):
+def build_task(input_files, task_name, tsv_fields, mask_fields=None, p_full=0.5):
     
 
     # if no option given, allow masking of all fields
@@ -75,9 +75,7 @@ def build_task(input_files, task_name, tsv_fields, mask_fields=None, p_full=0.5,
     # i.e. don't mask any fields not in mask_fields
     # also, require at least one mask
     mask_field_inds = [fields.index(field) for field in mask_fields]
-    
-    if field_mask_options is None:
-        field_mask_options =  [list(l) for l in itertools.product([0, 1], repeat=len(fields)) if (sum([l[ind] for ind in mask_field_inds]) == sum(l)) and sum(l) > 0]
+    field_mask_options =  [list(l) for l in itertools.product([0, 1], repeat=len(fields)) if (sum([l[ind] for ind in mask_field_inds]) == sum(l)) and sum(l) > 0]
 
     
     # define the task
@@ -137,7 +135,7 @@ Datasets -- ATOMIC-10X
 
 dataset_name = 'ATOMIC10X'
 
-file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/standard_data_v1/unannotated_ATOMIC10X_{}.tsv'
+file_template = 'gs://peterw-tpu-eu/standard_data_v1/unannotated_ATOMIC10X_{}.tsv'
 input_files = {'train':file_template.format('train'),
             'test':file_template.format('test'),
             'validation':file_template.format('val')}
@@ -155,7 +153,7 @@ Datasets -- ATOMIC2020
 
 dataset_name = 'ATOMIC2020'
 
-file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/standard_data_v1/unannotated_ATOMIC2020_{}.tsv'
+file_template = 'gs://peterw-tpu-eu/standard_data_v1/unannotated_ATOMIC2020_{}.tsv'
 input_files = {'train':file_template.format('train'),
             'test':file_template.format('test'),
             'validation':file_template.format('val')}
@@ -173,7 +171,7 @@ Datasets -- generated
 
 dataset_name = 'generated'
 
-file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/standard_data_v1/unannotated_generated2023_{}.tsv'
+file_template = 'gs://peterw-tpu-eu/standard_data_v1/unannotated_generated2023_{}.tsv'
 input_files = {'train':file_template.format('train'),
             'test':file_template.format('test'),
             'validation':file_template.format('val')}
@@ -186,19 +184,13 @@ datasets.append({'input_files': input_files, 'dataset_name':dataset_name,
 
 
 
-
-
 '''
 Datasets -- annotated
-
-The annotated dataset, but also masking every annotation field and never
-masking the generative fields.
-
-
+'''
 
 dataset_name = 'annotated'
 
-file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/standard_data_v1/annotated_{}.tsv'
+file_template = 'gs://peterw-tpu-eu/standard_data_v1/annotated_{}.tsv'
 input_files = {'train':file_template.format('train'),
             'test':file_template.format('test'),
             'validation':file_template.format('val')}
@@ -209,33 +201,6 @@ datasets.append({'input_files': input_files, 'dataset_name':dataset_name,
                 'nonempty_fields':nonempty_fields,
                 'share':share})
 
-'''
-
-'''
-Datasets -- critic
-
-The annotated dataset, but also masking every annotation field and never
-masking the generative fields.
-
-
-
-dataset_name = 'critic'
-
-file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/standard_data_v1/annotated_{}.tsv'
-input_files = {'train':file_template.format('train'),
-            'test':file_template.format('test'),
-            'validation':file_template.format('val')}
-nonempty_fields =  ['premise','hypothesis','question','reasonable','expected','invalid','format','offensive'] 
-share = 1
-dataset = {'input_files': input_files, 'dataset_name':dataset_name,
-                'tsv_fields':tsv_fields,
-                'nonempty_fields':nonempty_fields,
-                'share':share}
-
-task_name = 'train_{}'.format(dataset['dataset_name'])
-build_task(dataset['input_files'], task_name,dataset['tsv_fields'],dataset['nonempty_fields'], field_mask_options=[[0,0,0,1,1,1,1,1]])
-
-'''
 
 """
 
