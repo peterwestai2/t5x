@@ -2,7 +2,6 @@ from atomic_seqio_utils import key_prefixes, fill_missing_fields, mask_each_fiel
 
 from t5.data import preprocessors
 import t5
-from t5.evaluation import metrics
 import seqio
 import functools
 import tensorflow as tf
@@ -45,16 +44,6 @@ vocabulary = t5.data.get_default_vocabulary()
 fields = list(fields_to_sentinels.keys())
 
 
-DEFAULT_OUTPUT_FEATURES_FINAL = {
-    "inputs":
-        seqio.Feature(
-            vocabulary=vocabulary, add_eos=True),
-    "targets":
-        seqio.Feature(
-            vocabulary=vocabulary, add_eos=True),
-    
-}
-
 DEFAULT_OUTPUT_FEATURES = {
     "inputs":
         seqio.Feature(
@@ -74,32 +63,7 @@ for field in fields:
                                         vocabulary=vocabulary, add_eos=False),})
 
 
-    
-    
-def my_tokenize(dataset: tf.data.Dataset) -> tf.data.Dataset:
-  """Encode output features with specified vocabularies.
-  Passes through other features unchanged. Optionally passes through copy
-  of original features with "_pretokenized" suffix added to the key.
-  When `with_eos` is True and input features are ranked > 1, then an EOS is
-  appended only to the last item of each 1-D sequence.
-  Args:
-    dataset: a tf.data.Dataset of examples to tokenize.
-    output_features: a dict of Feature objects; their vocabulary attribute will
-      be used to tokenize the specified features.
-    copy_pretokenized: bool, whether to pass through copies of original features
-      with "_pretokenized" suffix added to the key.
-    with_eos: bool, whether to append EOS to the end of the sequence.
-  Returns:
-    a tf.data.Dataset
-  """
-  tokenize_fn = functools.partial(
-      seqio.preprocessors.tokenize_impl,
-      output_features=DEFAULT_OUTPUT_FEATURES,
-      copy_pretokenized=False,
-      with_eos=False)
-  return seqio.utils.map_over_dataset(fn=tokenize_fn)(dataset)
-    
-def build_task(input_files, task_name, tsv_fields, mask_fields=None, p_full=0.5, field_mask_options = None, metric_fns = []):
+def build_task(input_files, task_name, tsv_fields, mask_fields=None, p_full=0.5, field_mask_options = None):
     
 
     # if no option given, allow masking of all fields
@@ -114,8 +78,6 @@ def build_task(input_files, task_name, tsv_fields, mask_fields=None, p_full=0.5,
     
     if field_mask_options is None:
         field_mask_options =  [list(l) for l in itertools.product([0, 1], repeat=len(fields)) if (sum([l[ind] for ind in mask_field_inds]) == sum(l)) and sum(l) > 0]
-
-    
 
     
     # define the task
@@ -133,8 +95,7 @@ def build_task(input_files, task_name, tsv_fields, mask_fields=None, p_full=0.5,
         functools.partial(key_prefixes, fields=fields),
     
         # tokenize 
-        my_tokenize,
-
+        seqio.preprocessors.tokenize,
         
         # use random masking to generate inputs/targets for each field (similar to T5 objective)
         functools.partial(mask_each_field, 
@@ -149,14 +110,9 @@ def build_task(input_files, task_name, tsv_fields, mask_fields=None, p_full=0.5,
         # remove some extraneous features
         functools.partial(
             preprocessors.rekey, key_map={key:key for key in DEFAULT_OUTPUT_FEATURES.keys()}),
-        # remove some extraneous features
-        #functools.partial(
-        #    preprocessors.rekey, key_map={key:key for key in ['inputs','targets']}),
 
     ],
-    metric_fns=metric_fns,
-    #output_features=DEFAULT_OUTPUT_FEATURES)
-    output_features=DEFAULT_OUTPUT_FEATURES_FINAL)
+    output_features=DEFAULT_OUTPUT_FEATURES)
     
     
     
@@ -277,9 +233,7 @@ dataset = {'input_files': input_files, 'dataset_name':dataset_name,
                 'share':share}
 
 task_name = 'train_{}'.format(dataset['dataset_name'])
-build_task(dataset['input_files'], task_name,dataset['tsv_fields'],dataset['nonempty_fields'], field_mask_options=[[0,0,0,1,1,1,1,1]],
-          #metric_fns =[])
-          metric_fns =[metrics.bleu,metrics.rouge])
+build_task(dataset['input_files'], task_name,dataset['tsv_fields'],dataset['nonempty_fields'], field_mask_options=[[0,0,0,1,1,1,1,1]])
 
 """
 
@@ -352,7 +306,7 @@ First, generate training tasks
 '''
 for dataset in datasets:
     task_name = 'train_{}'.format(dataset['dataset_name'])
-    build_task(dataset['input_files'], task_name,dataset['tsv_fields'],dataset['nonempty_fields'], metric_fns =[metrics.bleu,metrics.rouge])
+    build_task(dataset['input_files'], task_name,dataset['tsv_fields'],dataset['nonempty_fields'])
     train_tasks.append( (task_name, dataset['share']) )
     
     
