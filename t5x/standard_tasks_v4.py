@@ -194,7 +194,7 @@ Datasets -- annotated
 The annotated dataset, but also masking every annotation field and never
 masking the generative fields.
 
-'''
+
 
 dataset_name = 'annotated'
 
@@ -209,7 +209,7 @@ datasets.append({'input_files': input_files, 'dataset_name':dataset_name,
                 'nonempty_fields':nonempty_fields,
                 'share':share})
 
-
+'''
 
 '''
 Datasets -- critic
@@ -217,7 +217,7 @@ Datasets -- critic
 The annotated dataset, but also masking every annotation field and never
 masking the generative fields.
 
-'''
+
 
 dataset_name = 'critic'
 
@@ -234,6 +234,8 @@ dataset = {'input_files': input_files, 'dataset_name':dataset_name,
 
 task_name = 'train_{}'.format(dataset['dataset_name'])
 build_task(dataset['input_files'], task_name,dataset['tsv_fields'],dataset['nonempty_fields'], field_mask_options=[[0,0,0,1,1,1,1,1]])
+
+'''
 
 """
 
