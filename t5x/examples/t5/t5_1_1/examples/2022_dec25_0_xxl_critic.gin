@@ -17,7 +17,7 @@ BATCH_SIZE = 64
 
 #MODEL_DIR = "gs://peterw-tpu-eu/2022_dec25_0_xxl_critic/models"
 #DATA_DIR = "gs://peterw-tpu-eu/2022_dec25_0_xxl_critic/data"
-MIXTURE_OR_TASK_NAME = "standard_v4_train_mix"
+MIXTURE_OR_TASK_NAME = "train_critic"
 TASK_FEATURE_LENGTHS = {"inputs": 128, "targets": 128}
 TRAIN_STEPS = 1_100_000  # 1000000 pre-trained steps + 50000 fine-tuning steps.
 DROPOUT_RATE = 0.1
@@ -48,11 +48,11 @@ utils.create_learning_rate_scheduler:
   warmup_steps = 1000
   
 train/utils.DatasetConfig:
-  mixture_or_task_name = "standard_v4_train_mix"
+  mixture_or_task_name = "train_critic"
   split = 'train'
 
 train_eval/utils.DatasetConfig:
-  mixture_or_task_name = "standard_v4_train_mix"
+  mixture_or_task_name = "train_critic"
   split = 'validation'
 
 
