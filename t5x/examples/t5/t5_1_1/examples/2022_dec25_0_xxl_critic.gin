@@ -15,8 +15,8 @@ include "t5x/configs/runs/finetune.gin"
 
 BATCH_SIZE = 64
 
-MODEL_DIR = "gs://peterw-tpu-eu/2022_dec25_0_xxl_critic/models"
-DATA_DIR = "gs://peterw-tpu-eu/2022_dec25_0_xxl_critic/data"
+#MODEL_DIR = "gs://peterw-tpu-eu/2022_dec25_0_xxl_critic/models"
+#DATA_DIR = "gs://peterw-tpu-eu/2022_dec25_0_xxl_critic/data"
 MIXTURE_OR_TASK_NAME = "standard_v4_train_mix"
 TASK_FEATURE_LENGTHS = {"inputs": 128, "targets": 128}
 TRAIN_STEPS = 1_100_000  # 1000000 pre-trained steps + 50000 fine-tuning steps.
