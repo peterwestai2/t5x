@@ -262,6 +262,31 @@ datasets.append({'input_files': input_files, 'dataset_name':dataset_name,
 
 
 '''
+Datasets -- human annotated
+
+The annotated dataset, but also masking every annotation field and never
+masking the generative fields.
+
+
+
+dataset_name = 'human_annotated'
+
+
+file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/jan_9_2022_dataset/human_annotated_{}.tsv'
+input_files = {'train':file_template.format('train'),
+            'test':file_template.format('test'),
+            'validation':file_template.format('val')}
+nonempty_fields =  ['premise','hypothesis','question','reasonable'] 
+share = 4
+datasets.append({'input_files': input_files, 'dataset_name':dataset_name,
+                'tsv_fields':tsv_fields,
+                'nonempty_fields':nonempty_fields,
+                'share':share})
+
+'''
+
+
+'''
 First, generate training tasks
 '''
 for dataset in datasets:
