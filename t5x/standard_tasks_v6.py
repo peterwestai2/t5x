@@ -176,7 +176,7 @@ def build_task(input_files, task_name, tsv_fields, mask_fields=None, p_full=0.5,
 datasets = []
     
   
-tsv_fields = ['premise','hypothesis','question','reasonable'] 
+tsv_fields = ['premise','question','hypothesis','reasonable'] 
  
 '''
 Datasets -- ATOMIC-10X
