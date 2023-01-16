@@ -290,6 +290,36 @@ build_task(dataset['input_files'], task_name,dataset['tsv_fields'],dataset['none
 train_tasks.append( (task_name, dataset['share']) )
 
 
+
+'''
+Datasets -- human annotated critic
+
+The annotated dataset, but also masking every annotation field and never
+masking the generative fields. This multival version takes on values -1,0,1,2 instead of just 0,1
+
+'''
+
+dataset_name = 'human_annotated_multival_critic'
+
+
+file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/jan_9_2022_dataset/human_annotated_multival_{}.tsv'
+input_files = {'train':file_template.format('train'),
+            'test':file_template.format('test'),
+            'validation':file_template.format('val')}
+nonempty_fields =  ['premise','hypothesis','question','reasonable'] 
+share = 2
+
+dataset = {'input_files': input_files, 'dataset_name':dataset_name,
+                'tsv_fields':tsv_fields,
+                'nonempty_fields':nonempty_fields,
+                'share':share}
+
+
+task_name = 'train_{}'.format(dataset['dataset_name'])
+build_task(dataset['input_files'], task_name,dataset['tsv_fields'],dataset['nonempty_fields'], field_mask_options=[[0,0,0,1]],
+           metric_fns =[metrics.bleu,metrics.rouge])
+
+
 '''
 First, generate training tasks
 '''
