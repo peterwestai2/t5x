@@ -278,12 +278,17 @@ input_files = {'train':file_template.format('train'),
             'test':file_template.format('test'),
             'validation':file_template.format('val')}
 nonempty_fields =  ['premise','hypothesis','question','reasonable'] 
-share = 100
+share = 6
 
-datasets.append({'input_files': input_files, 'dataset_name':dataset_name,
+dataset = {'input_files': input_files, 'dataset_name':dataset_name,
                 'tsv_fields':tsv_fields,
                 'nonempty_fields':nonempty_fields,
-                'share':share})
+                'share':share}
+
+task_name = 'train_{}'.format(dataset['dataset_name'])
+build_task(dataset['input_files'], task_name,dataset['tsv_fields'],dataset['nonempty_fields'], field_mask_options=[[0,0,0,1]],
+           metric_fns =[metrics.bleu,metrics.rouge])
+train_tasks.append( (task_name, dataset['share']) )
 
 
 '''
