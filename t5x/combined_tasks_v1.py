@@ -47,8 +47,7 @@ for scale in ['500','1k','4k','8k']:
 
   dataset_name = 'critic_ablation_{}'.format(scale)
 
-
-  file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/jan_9_2022_dataset/human_annotated_multival_{}.tsv'
+  file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/SKD-2023-data/jan_26_2023_critic_ablation/human_annotated_multival_{}'.format(scale) + '_{}.tsv'
   input_files = {'train':file_template.format('train'),
               'test':file_template.format('test'),
               'validation':file_template.format('val')}
