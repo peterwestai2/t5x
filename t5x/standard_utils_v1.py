@@ -285,7 +285,9 @@ def build_task(input_files, task_name, mask_fields=None, p_full=0.5, field_mask_
     # also, require at least one mask
     mask_field_inds = [fields.index(field) for field in mask_fields]
     
+    ## define the set of field masks that we will be sampling from
     if field_mask_options is None:
+        # in if statement: first term asserts only mask_fields are masked, second term asserts that at least one field is masked
         field_mask_options =  [list(l) for l in itertools.product([0, 1], repeat=len(fields)) if (sum([l[ind] for ind in mask_field_inds]) == sum(l)) and sum(l) > 0]
 
     
