@@ -73,7 +73,7 @@ for scale in ['500','1k','4k','8k']:
 Datasets -- ATOMIC-10X
 '''
 
-dataset_name = 'ATOMIC10X'
+dataset_name = 'ATOMIC10X_jan9'
 
 file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/jan_9_2022_dataset/unannotated_ATOMIC10X_{}.tsv'
 input_files = {'train':file_template.format('train'),
@@ -88,7 +88,7 @@ build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,met
 Datasets -- ATOMIC2020 
 '''
 
-dataset_name = 'ATOMIC2020'
+dataset_name = 'ATOMIC2020_jan9'
 
 file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/jan_9_2022_dataset/unannotated_ATOMIC2020_{}.tsv'
 input_files = {'train':file_template.format('train'),
@@ -103,7 +103,7 @@ build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,met
 Datasets -- generated 
 '''
 
-dataset_name = 'generated'
+dataset_name = 'generated_jan9'
 
 file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/jan_9_2022_dataset/unannotated_generated2023_{}.tsv'
 input_files = {'train':file_template.format('train'),
@@ -127,7 +127,7 @@ masking the generative fields.
 
 '''
 
-dataset_name = 'human_annotated'
+dataset_name = 'human_annotated_jan9'
 
 
 file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/jan_9_2022_dataset/human_annotated_multival_{}.tsv'
@@ -148,7 +148,7 @@ masking the generative fields. This multival version takes on values -1,0,1,2 in
 
 '''
 
-dataset_name = 'human_annotated_multival_critic'
+dataset_name = 'human_annotated_multival_critic_jan9'
 
 
 file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/jan_9_2022_dataset/human_annotated_multival_{}.tsv'
@@ -159,3 +159,14 @@ mask_fields =  ['reasonable']
 #share = 6
 
 build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge])
+
+
+
+
+seqio.MixtureRegistry.add(
+  "standard_10k_mix_jan9",
+  [('ATOMIC10X_jan9', 1),
+  ('ATOMIC2020_jan9',1),
+  ('generated_jan9',4),
+  ('human_annotated_jan9',2),
+  ('human_annotated_multival_critic_jan9',6)])
