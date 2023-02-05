@@ -162,7 +162,6 @@ build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,met
 
 
 
-
 seqio.MixtureRegistry.add(
   "standard_10k_mix_jan9",
   [('ATOMIC10X_jan9', 1),
@@ -170,3 +169,47 @@ seqio.MixtureRegistry.add(
   ('generated_jan9',4),
   ('human_annotated_jan9',2),
   ('human_annotated_multival_critic_jan9',6)])
+
+
+
+
+
+
+# ==================================== critic using 30k annotation ======================================
+# This combines 2 rounds of data annotation
+#
+# for now, just using the critic because we lost access to the full dataset due to reimaging of the server
+# so we will just be testing the critic
+#
+# We will give a small share to the original critic, which will allow us to see how the accuracy for the original
+# critic goes up or down with the new critic data
+
+
+'''
+Datasets -- human annotated critic
+
+The annotated dataset, but also masking every annotation field and never
+masking the generative fields. This multival version takes on values -1,0,1,2 instead of just 0,1
+
+'''
+
+dataset_name = 'human_annotated_multival_critic_feb4'
+
+
+ai2-mosaic-public/projects/symbolic-knowledge-decoding/feb4_annotated_dataset/annotated_30k_test.tsv
+
+file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/feb4_annotated_dataset/annotated_30k_{}.tsv'
+input_files = {'train':file_template.format('train'),
+            'test':file_template.format('test'),
+            'validation':file_template.format('val')}
+mask_fields =  ['reasonable'] 
+#share = 6
+
+build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge])
+
+
+seqio.MixtureRegistry.add(
+  "feb4_critic_mix",
+  [('human_annotated_multival_critic_feb4',100),
+  ('human_annotated_multival_critic_jan9',1)])
+
