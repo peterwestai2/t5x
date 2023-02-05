@@ -196,7 +196,6 @@ masking the generative fields. This multival version takes on values -1,0,1,2 in
 dataset_name = 'human_annotated_multival_critic_feb4'
 
 
-ai2-mosaic-public/projects/symbolic-knowledge-decoding/feb4_annotated_dataset/annotated_30k_test.tsv
 
 file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/feb4_annotated_dataset/annotated_30k_{}.tsv'
 input_files = {'train':file_template.format('train'),
