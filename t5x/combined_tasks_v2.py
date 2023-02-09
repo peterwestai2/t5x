@@ -44,15 +44,11 @@ Datasets -- ATOMIC-10X
 '''
 
 dataset_name = 'ATOMIC10X_feb8'
-
-# need a new one
-#file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/jan_9_2022_dataset/unannotated_ATOMIC10X_{}.tsv'
+file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/feb8_dataset/unannotated_ATOMIC10X_{}.tsv'
 input_files = {'train':file_template.format('train'),
             'test':file_template.format('test'),
             'validation':file_template.format('val')}
 mask_fields = ['context','query','inference']
-#share = 1
-
 build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge])
 
 '''
@@ -60,14 +56,11 @@ Datasets -- ATOMIC2020
 '''
 
 dataset_name = 'ATOMIC2020_feb8'
-
-# need a new one
-#file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/jan_9_2022_dataset/unannotated_ATOMIC2020_{}.tsv'
+file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/feb8_dataset/unannotated_ATOMIC2020_{}.tsv'
 input_files = {'train':file_template.format('train'),
             'test':file_template.format('test'),
             'validation':file_template.format('val')}
 mask_fields = ['context','query','inference']
-#share = 1
 build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge])
 
 
@@ -76,14 +69,11 @@ Datasets -- generated
 '''
 
 dataset_name = 'generated_feb8'
-
-# need a new one
-#file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/jan_9_2022_dataset/unannotated_generated2023_{}.tsv'
+file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/feb8_dataset/unannotated_generated2023_{}.tsv'
 input_files = {'train':file_template.format('train'),
             'test':file_template.format('test'),
             'validation':file_template.format('val')}
 mask_fields = ['context','query','inference']
-#share = 4
 build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge])
 
 
@@ -101,15 +91,11 @@ masking the generative fields.
 '''
 
 dataset_name = 'human_annotated_feb8'
-
-
-# need a new one
-#file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/jan_9_2022_dataset/human_annotated_multival_{}.tsv'
+file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/feb8_dataset/annotated_full_{}.tsv'
 input_files = {'train':file_template.format('train'),
             'test':file_template.format('test'),
             'validation':file_template.format('val')}
 mask_fields =  ['context','query','inference','plausibility']
-#share = 2
 build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge])
 
 
@@ -123,8 +109,7 @@ masking the generative fields. This multival version takes on values -1,0,1,2 in
 '''
 
 dataset_name = 'full_critic_feb8'
-# need a new one
-#file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/jan_9_2022_dataset/human_annotated_multival_{}.tsv'
+file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/feb8_dataset/annotated_full_{}.tsv'
 input_files = {'train':file_template.format('train'),
             'test':file_template.format('test'),
             'validation':file_template.format('val')}
@@ -142,7 +127,7 @@ masking the generative fields. This multival version takes on values -1,0,1,2 in
 
 dataset_name = 'round1_critic_feb8'
 # need a new one
-#file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/jan_9_2022_dataset/human_annotated_multival_{}.tsv'
+file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/feb8_dataset/annotated_round1_{}.tsv'
 input_files = {'train':file_template.format('train'),
             'test':file_template.format('test'),
             'validation':file_template.format('val')}
@@ -158,8 +143,7 @@ masking the generative fields. This multival version takes on values -1,0,1,2 in
 '''
 
 dataset_name = 'round2_critic_feb8'
-# need a new one
-#file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/jan_9_2022_dataset/human_annotated_multival_{}.tsv'
+file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/feb8_dataset/annotated_round2_{}.tsv'
 input_files = {'train':file_template.format('train'),
             'test':file_template.format('test'),
             'validation':file_template.format('val')}
