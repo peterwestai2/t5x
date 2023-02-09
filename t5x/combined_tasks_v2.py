@@ -27,37 +27,6 @@ Below, we define different task sets and mixtures based on these
 '''
 
 
-
-
-# ==================================== critic sample ablation ======================================
-# Try different numbers of annotated points for training the critic model
-#
-# This makes:
-#   critic_ablation_500
-#   critic_ablation_1k
-#   critic_ablation_4k
-#   critic_ablation_8k
-#
-# These all have the same dev/test set but different sizes of training data
-# The idea is to figure out how much adding human annotation will help
-
-
-for scale in ['500','1k','4k','8k']:
-  
-
-  dataset_name = 'critic_ablation_{}'.format(scale)
-
-  # need a new one
-  #file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/SKD-2023-data/jan_26_2023_critic_ablation/human_annotated_multival_{}'.format(scale) + '_{}.tsv'
-  input_files = {'train':file_template.format('train'),
-              'test':file_template.format('test'),
-              'validation':file_template.format('val')}
-  mask_fields =  ['reasonable'] 
-  
-  build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge])
-
-
-
     
 # ==================================== original 10k annotation dataset ======================================
 # This creates the original dataset, which uses 10k annotations from late December, 2022
@@ -74,14 +43,14 @@ for scale in ['500','1k','4k','8k']:
 Datasets -- ATOMIC-10X
 '''
 
-dataset_name = 'ATOMIC10X_jan9'
+dataset_name = 'ATOMIC10X_feb8'
 
 # need a new one
 #file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/jan_9_2022_dataset/unannotated_ATOMIC10X_{}.tsv'
 input_files = {'train':file_template.format('train'),
             'test':file_template.format('test'),
             'validation':file_template.format('val')}
-mask_fields = ['premise','hypothesis','question']
+mask_fields = ['context','query','inference']
 #share = 1
 
 build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge])
@@ -90,14 +59,14 @@ build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,met
 Datasets -- ATOMIC2020 
 '''
 
-dataset_name = 'ATOMIC2020_jan9'
+dataset_name = 'ATOMIC2020_feb8'
 
 # need a new one
 #file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/jan_9_2022_dataset/unannotated_ATOMIC2020_{}.tsv'
 input_files = {'train':file_template.format('train'),
             'test':file_template.format('test'),
             'validation':file_template.format('val')}
-mask_fields = ['premise','hypothesis','question']
+mask_fields = ['context','query','inference']
 #share = 1
 build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge])
 
@@ -106,14 +75,14 @@ build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,met
 Datasets -- generated 
 '''
 
-dataset_name = 'generated_jan9'
+dataset_name = 'generated_feb8'
 
 # need a new one
 #file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/jan_9_2022_dataset/unannotated_generated2023_{}.tsv'
 input_files = {'train':file_template.format('train'),
             'test':file_template.format('test'),
             'validation':file_template.format('val')}
-mask_fields = ['premise','hypothesis','question']
+mask_fields = ['context','query','inference']
 #share = 4
 build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge])
 
@@ -131,7 +100,7 @@ masking the generative fields.
 
 '''
 
-dataset_name = 'human_annotated_jan9'
+dataset_name = 'human_annotated_feb8'
 
 
 # need a new one
@@ -139,82 +108,78 @@ dataset_name = 'human_annotated_jan9'
 input_files = {'train':file_template.format('train'),
             'test':file_template.format('test'),
             'validation':file_template.format('val')}
-mask_fields =  ['premise','hypothesis','question', 'reasonable'] 
+mask_fields =  ['context','query','inference','plausibility']
 #share = 2
 build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge])
 
 
 
 '''
-Datasets -- human annotated critic
+Datasets -- full human annotated critic
 
 The annotated dataset, but also masking every annotation field and never
 masking the generative fields. This multival version takes on values -1,0,1,2 instead of just 0,1
 
 '''
 
-dataset_name = 'human_annotated_multival_critic_jan9'
-
-
+dataset_name = 'full_critic_feb8'
 # need a new one
 #file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/jan_9_2022_dataset/human_annotated_multival_{}.tsv'
 input_files = {'train':file_template.format('train'),
             'test':file_template.format('test'),
             'validation':file_template.format('val')}
-mask_fields =  ['reasonable'] 
-#share = 6
-
+mask_fields =  ['plausibility']
 build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge])
 
 
-
-seqio.MixtureRegistry.add(
-  "standard_10k_mix_jan9",
-  [('ATOMIC10X_jan9', 1),
-  ('ATOMIC2020_jan9',1),
-  ('generated_jan9',4),
-  ('human_annotated_jan9',2),
-  ('human_annotated_multival_critic_jan9',6)])
-
-
-
-
-
-
-# ==================================== critic using 30k annotation ======================================
-# This combines 2 rounds of data annotation
-#
-# for now, just using the critic because we lost access to the full dataset due to reimaging of the server
-# so we will just be testing the critic
-#
-# We will give a small share to the original critic, which will allow us to see how the accuracy for the original
-# critic goes up or down with the new critic data
-
-
 '''
-Datasets -- human annotated critic
+Datasets -- round1 human annotated critic
 
 The annotated dataset, but also masking every annotation field and never
 masking the generative fields. This multival version takes on values -1,0,1,2 instead of just 0,1
 
 '''
 
-dataset_name = 'human_annotated_multival_critic_feb4'
-
-
+dataset_name = 'round1_critic_feb8'
 # need a new one
-#file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/feb4_annotated_dataset/annotated_30k_{}.tsv'
+#file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/jan_9_2022_dataset/human_annotated_multival_{}.tsv'
 input_files = {'train':file_template.format('train'),
             'test':file_template.format('test'),
             'validation':file_template.format('val')}
-mask_fields =  ['reasonable'] 
-#share = 6
+mask_fields =  ['plausibility']
+build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge])
 
+'''
+Datasets -- round2 human annotated critic
+
+The annotated dataset, but also masking every annotation field and never
+masking the generative fields. This multival version takes on values -1,0,1,2 instead of just 0,1
+
+'''
+
+dataset_name = 'round2_critic_feb8'
+# need a new one
+#file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/jan_9_2022_dataset/human_annotated_multival_{}.tsv'
+input_files = {'train':file_template.format('train'),
+            'test':file_template.format('test'),
+            'validation':file_template.format('val')}
+mask_fields =  ['plausibility']
 build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge])
 
 
+
 seqio.MixtureRegistry.add(
-  "feb4_critic_mix",
-  [('human_annotated_multival_critic_feb4',100),
-  ('human_annotated_multival_critic_jan9',1)])
+  "feb8_gen_mix",
+  [('ATOMIC10X_feb8', 1),
+  ('ATOMIC2020_feb8',1),
+  ('generated_feb8',4),
+  ('human_annotated_feb8',2),
+  ('full_critic_feb8',6)])
+
+
+seqio.MixtureRegistry.add(
+  "feb8_critic_mix",
+  [('full_critic_feb8',100),
+  ('round1_critic_feb8',1),
+  ('round2_critic_feb8',1)])
 
