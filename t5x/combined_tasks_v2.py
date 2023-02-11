@@ -28,14 +28,10 @@ Below, we define different task sets and mixtures based on these
 
 
     
-# ==================================== original 10k annotation dataset ======================================
-# This creates the original dataset, which uses 10k annotations from late December, 2022
+# ==================================== feb8 30k annotation dataset ======================================
+# This creates the feb8 datasets, which use 30k annotation and the cqi format with plausibilities
+# of -1.0, 0.0, 1.0, and 2.0
 #
-# This makes the following tasks/mixtures:
-# 
-#
-# These all have the same dev/test set but different sizes of training data
-# The idea is to figure out how much adding human annotation will help
 
   
   
@@ -167,3 +163,134 @@ seqio.MixtureRegistry.add(
   ('round1_critic_feb8',1),
   ('round2_critic_feb8',1)])
 
+
+
+
+
+# ==================================== feb10 30k annotation dataset ======================================
+# This creates the feb8 datasets, which use 30k annotation and the cqi format with plausibilities
+# of 0, 1, 2, 3
+#
+
+  
+  
+'''
+Datasets -- ATOMIC-10X
+'''
+
+dataset_name = 'ATOMIC10X_feb10'
+file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/feb10_dataset/unannotated_ATOMIC10X_{}.tsv'
+input_files = {'train':file_template.format('train'),
+            'test':file_template.format('test'),
+            'validation':file_template.format('val')}
+mask_fields = ['context','query','inference']
+build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge])
+
+'''
+Datasets -- ATOMIC2020 
+'''
+
+dataset_name = 'ATOMIC2020_feb10'
+file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/feb10_dataset/unannotated_ATOMIC2020_{}.tsv'
+input_files = {'train':file_template.format('train'),
+            'test':file_template.format('test'),
+            'validation':file_template.format('val')}
+mask_fields = ['context','query','inference']
+build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge])
+
+
+'''
+Datasets -- generated 
+'''
+
+dataset_name = 'generated_feb10'
+file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/feb10_dataset/unannotated_generated2023_{}.tsv'
+input_files = {'train':file_template.format('train'),
+            'test':file_template.format('test'),
+            'validation':file_template.format('val')}
+mask_fields = ['context','query','inference']
+build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge])
+
+
+
+
+
+
+
+'''
+Datasets -- human annotated
+
+The annotated dataset, but also masking every annotation field and never
+masking the generative fields.
+
+'''
+
+dataset_name = 'human_annotated_feb10'
+file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/feb10_dataset/annotated_full_{}.tsv'
+input_files = {'train':file_template.format('train'),
+            'test':file_template.format('test'),
+            'validation':file_template.format('val')}
+mask_fields =  ['context','query','inference','plausibility']
+build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge])
+
+
+
+'''
+Datasets -- full human annotated critic
+
+
+'''
+
+dataset_name = 'full_critic_feb10'
+file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/feb10_dataset/annotated_full_{}.tsv'
+input_files = {'train':file_template.format('train'),
+            'test':file_template.format('test'),
+            'validation':file_template.format('val')}
+mask_fields =  ['plausibility']
+build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge])
+
+
+'''
+Datasets -- round1 human annotated critic
+
+'''
+
+dataset_name = 'round1_critic_feb10'
+# need a new one
+file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/feb10_dataset/annotated_round1_{}.tsv'
+input_files = {'train':file_template.format('train'),
+            'test':file_template.format('test'),
+            'validation':file_template.format('val')}
+mask_fields =  ['plausibility']
+build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge])
+
+'''
+Datasets -- round2 human annotated critic
+
+
+'''
+
+dataset_name = 'round2_critic_feb10'
+file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/feb10_dataset/annotated_round2_{}.tsv'
+input_files = {'train':file_template.format('train'),
+            'test':file_template.format('test'),
+            'validation':file_template.format('val')}
+mask_fields =  ['plausibility']
+build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge])
+
+
+
+seqio.MixtureRegistry.add(
+  "feb10_gen_mix",
+  [('ATOMIC10X_feb10', 1),
+  ('ATOMIC2020_feb10',1),
+  ('generated_feb10',4),
+  ('human_annotated_feb10',2),
+  ('full_critic_feb10',6)])
+
+
+seqio.MixtureRegistry.add(
+  "feb10_critic_mix",
+  [('full_critic_feb10',100),
+  ('round1_critic_feb10',1),
+  ('round2_critic_feb10',1)])
