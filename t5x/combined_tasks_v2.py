@@ -294,3 +294,19 @@ seqio.MixtureRegistry.add(
   [('full_critic_feb10',100),
   ('round1_critic_feb10',1),
   ('round2_critic_feb10',1)])
+
+
+
+'''
+
+
+New mix that only uses the generated data 
+for the main bulk of training
+
+'''
+
+seqio.MixtureRegistry.add(
+  "feb24_gen_mix",
+  [('generated_feb8',4),
+  ('human_annotated_feb8',2),
+  ('full_critic_feb8',6)])
