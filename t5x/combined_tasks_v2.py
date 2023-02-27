@@ -310,3 +310,30 @@ seqio.MixtureRegistry.add(
   [('generated_feb8',4),
   ('human_annotated_feb8',2),
   ('full_critic_feb8',6)])
+
+
+
+
+
+# ==================================== feb27 ablation ======================================
+# This creates the tasks for the critic ablation on feb27 using the 20k critic set
+#
+
+  
+ 
+
+'''
+Datasets -- critic ablations
+'''
+
+
+for name, _ in ([('1k',1000), ('2k',2000),('4k',4000),('8k',8000),('16k',16000)]):
+    dataset_name = 'feb27_ablation_{}'.format(name)
+    file_template = 'ai2-mosaic-public/projects/symbolic-knowledge-decoding/feb27_ablation/annotated_{}_'.format(name) + '{}.tsv'
+    input_files = {'train':file_template.format('train'),
+                'test':file_template.format('test'),
+                'validation':file_template.format('val')}
+    mask_fields =  ['plausibility']
+    build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge])
+
+
