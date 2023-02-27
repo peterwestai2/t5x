@@ -329,7 +329,7 @@ Datasets -- critic ablations
 
 for name, _ in ([('1k',1000), ('2k',2000),('4k',4000),('8k',8000),('16k',16000)]):
     dataset_name = 'feb27_ablation_{}'.format(name)
-    file_template = 'ai2-mosaic-public/projects/symbolic-knowledge-decoding/feb27_ablation/annotated_{}_'.format(name) + '{}.tsv'
+    file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/feb27_ablation/annotated_{}_'.format(name) + '{}.tsv'
     input_files = {'train':file_template.format('train'),
                 'test':file_template.format('test'),
                 'validation':file_template.format('val')}
