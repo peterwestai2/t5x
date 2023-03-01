@@ -280,6 +280,16 @@ build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,met
 
 
 
+dataset_name = 'human_annotated_round2_feb10'
+file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/feb10_dataset/annotated_round2_{}.tsv'
+input_files = {'train':file_template.format('train'),
+            'test':file_template.format('test'),
+            'validation':file_template.format('val')}
+mask_fields =  ['context','query','inference','plausibility']
+build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge])
+
+
+
 seqio.MixtureRegistry.add(
   "feb10_gen_mix",
   [('ATOMIC10X_feb10', 1),
@@ -336,4 +346,22 @@ for name, _ in ([('1k',1000), ('2k',2000),('4k',4000),('8k',8000),('16k',16000)]
     mask_fields =  ['plausibility']
     build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge])
 
+    
+    
+# ==================================== feb28 data_source_comparison ======================================
+# This creates mixtures for the model with and without ATOMIC10X/2020 as we may drop these
+#
 
+seqio.MixtureRegistry.add(
+  "feb28_gen_allsets_mix",
+  [('ATOMIC10X_feb10', 1),
+  ('ATOMIC2020_feb10',1),
+  ('generated_feb10',4),
+  ('human_annotated_round2_feb10',2),
+  ('round2_critic_feb10',6)])
+
+seqio.MixtureRegistry.add(
+  "feb28_gen_newgen_mix",
+  [('generated_feb10',6),
+  ('human_annotated_round2_feb10',2),
+  ('round2_critic_feb10',6)])
