@@ -365,3 +365,19 @@ seqio.MixtureRegistry.add(
   [('generated_feb10',6),
   ('human_annotated_round2_feb10',2),
   ('round2_critic_feb10',6)])
+
+
+
+# ==================================== march 14 new data critic ======================================
+# Using only generated data for the critic (both normal generations and some from curie for weaker)
+#
+
+
+
+dataset_name = 'march14_critic_strongweak_gen'
+file_template = 'https://storage.googleapis.com/ai2-mosaic-public/projects/symbolic-knowledge-decoding/march14_critic_data/march14_critic_{}.tsv'
+input_files = {'train':file_template.format('train'),
+            'test':file_template.format('test'),
+            'validation':file_template.format('val')}
+mask_fields =  ['plausibility']
+build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge])
