@@ -8,6 +8,7 @@ from t5x import models
 from t5x import partitioning
 from t5x import utils
 import t5x.combined_tasks_v2 as standard_task # get my tasks
+import t5x.SoR_tasks as SoR_tasks # get Spectrum of reasoning tasks
 import seqio
 from t5x import trainer
 
