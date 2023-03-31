@@ -45,7 +45,7 @@ input_files = {'train':file_template.format('train'),
             'validation':file_template.format('dev')}
 
 seqio.TaskRegistry.add(
-    "atomic_gen_v1",
+    "march31_logic_task",
     seqio.TextLineDataSource(split_map,skip_header_lines=1,),
     preprocessors=[
         
@@ -79,7 +79,7 @@ input_files = {'train':file_template.format('train'),
             'validation':file_template.format('dev')}
 
 seqio.TaskRegistry.add(
-    "atomic_gen_v1",
+    "march31_math_task",
     seqio.TextLineDataSource(split_map,skip_header_lines=1,),
     preprocessors=[
         
