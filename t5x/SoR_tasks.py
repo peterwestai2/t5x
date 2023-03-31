@@ -46,7 +46,7 @@ input_files = {'train':file_template.format('train'),
 
 seqio.TaskRegistry.add(
     "march31_logic_task",
-    seqio.TextLineDataSource(split_map,skip_header_lines=1,),
+    seqio.TextLineDataSource(input_files,skip_header_lines=1,),
     preprocessors=[
         
         functools.partial(
@@ -80,7 +80,7 @@ input_files = {'train':file_template.format('train'),
 
 seqio.TaskRegistry.add(
     "march31_math_task",
-    seqio.TextLineDataSource(split_map,skip_header_lines=1,),
+    seqio.TextLineDataSource(input_files,skip_header_lines=1,),
     preprocessors=[
         
         functools.partial(
