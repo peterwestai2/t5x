@@ -392,7 +392,7 @@ build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,met
 # new data from taylor, with and without queries
 #
 
-dataset_name = 'april_2_gpt3turbo-v1'
+dataset_name = 'april_2_gpt3turbo_v1'
 file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/april_2_data/round2-gpt-3.5-turbo_v1_{}.csv'
 input_files = {'train':file_template.format('train'),
             'test':file_template.format('test'),
@@ -401,7 +401,7 @@ mask_fields = ['context','query','inference']
 build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge])
 
 
-dataset_name = 'april_2_gpt3turbo-qa'
+dataset_name = 'april_2_gpt3turbo_qa'
 file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/april_2_data/round2-gpt-3.5-turbo_qa_{}.csv'
 input_files = {'train':file_template.format('train'),
             'test':file_template.format('test'),
@@ -412,6 +412,6 @@ build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,met
 
 seqio.MixtureRegistry.add(
   "april_2_gpt3turbo",
-  [('april_2_gpt3turbo-v1',1),
-  ('april_2_gpt3turbo-qa',1)])
+  [('april_2_gpt3turbo_v1',1),
+  ('april_2_gpt3turbo_qa',1)])
 
