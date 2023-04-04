@@ -415,3 +415,22 @@ seqio.MixtureRegistry.add(
   [('april_2_gpt3turbo_v1',1),
   ('april_2_gpt3turbo_qa',1)])
 
+
+
+
+# ==================================== april 3 critic ======================================
+# frequency critic
+#
+
+'''
+New critic using Jena's template
+
+'''
+
+dataset_name = 'april3_freq_critic'
+file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/april3_freq_critic/april3_freq_critic_{}.tsv'
+input_files = {'train':file_template.format('train'),
+            'test':file_template.format('test'),
+            'validation':file_template.format('val')}
+mask_fields =  ['plausibility']
+build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge])
