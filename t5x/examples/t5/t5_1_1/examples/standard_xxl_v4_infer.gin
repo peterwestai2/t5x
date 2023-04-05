@@ -33,22 +33,6 @@ LOSS_NORMALIZING_FACTOR = 233472
 
 partitioning.PjitPartitioner:
   num_partitions = 8
-
-train_script.train:
-  eval_period = 500
-  
-train_script.train:
-  train_dataset_cfg = @train/utils.DatasetConfig()
-  train_eval_dataset_cfg = @train_eval/utils.DatasetConfig()
-  infer_eval_dataset_cfg = @infer_eval/utils.DatasetConfig()
-  
-trainer.Trainer:
-  num_microbatches = 16
-  learning_rate_fn = @utils.create_learning_rate_scheduler()
-utils.create_learning_rate_scheduler:
-  factors = 'constant'
-  base_learning_rate = %BASE_LEARNING_RATE
-  warmup_steps = 1000
   
   
 train/utils.DatasetConfig:
