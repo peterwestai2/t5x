@@ -2,7 +2,7 @@
 
 from __gin__ import dynamic_registration
 
-import __main__ as train_script
+import __main__ as infer_script
 from t5.data import mixtures
 from t5x import models
 from t5x import partitioning
@@ -34,7 +34,8 @@ LOSS_NORMALIZING_FACTOR = 233472
 partitioning.PjitPartitioner:
   num_partitions = 8
   
-  
+infer_script.infer:
+  checkpoint_ds_iter = False
   
 utils.SaveCheckpointConfig:
   period = 10000
@@ -50,6 +51,8 @@ infer_eval/utils.DatasetConfig:
 #  use_cached = %USE_CACHED_TASKS
 #  pack = False
 #  module = %MIXTURE_OR_TASK_MODULE
+
+
 
 seqio.Evaluator:
   logger_cls = [@seqio.PyLoggingLogger, @seqio.TensorBoardLogger, @seqio.JSONLogger]
