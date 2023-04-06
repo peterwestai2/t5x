@@ -45,7 +45,7 @@ infer_eval/utils.DatasetConfig:
   task_feature_lengths = %TASK_FEATURE_LENGTHS
   split = 'validation'
   batch_size = 64
-  shuffle = False
+  shuffle = True
   seed = 42
   use_cached = %USE_CACHED_TASKS
   pack = False
