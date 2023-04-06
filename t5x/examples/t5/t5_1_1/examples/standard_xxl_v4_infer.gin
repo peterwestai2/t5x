@@ -20,11 +20,11 @@ BATCH_SIZE = 64
 MIXTURE_OR_TASK_NAME = %gin.REQUIRED
 
 MIXTURE_OR_TASK_NAME_EVAL = %MIXTURE_OR_TASK_NAME # eval dataset is usually the same as base, but we can specify a different one
-BASE_LEARNING_RATE = 0.00001 # could be overridden
+#BASE_LEARNING_RATE = 0.00001 # could be overridden
 TASK_FEATURE_LENGTHS = {"inputs": 128, "targets": 128}
-TRAIN_STEPS = 1_100_000  # standard is 100000 extra steps, but could be overridden. 1_150_000 would be 1000000 pre-trained steps + 150000 fine-tuning steps.
+#TRAIN_STEPS = 1_100_000  # standard is 100000 extra steps, but could be overridden. 1_150_000 would be 1000000 pre-trained steps + 150000 fine-tuning steps.
 DROPOUT_RATE = 0.1
-INITIAL_CHECKPOINT_PATH = "gs://t5-data/pretrained_models/t5x/t5_1_1_xxl/checkpoint_1000000" # could be overridden 
+#INITIAL_CHECKPOINT_PATH = "gs://t5-data/pretrained_models/t5x/t5_1_1_xxl/checkpoint_1000000" # could be overridden 
 # `LOSS_NORMALIZING_FACTOR`: When fine-tuning a model that was pre-trained
 # using Mesh Tensorflow (e.g. the public T5 / mT5 / ByT5 models), this should be
 # set to `pretraining batch_size` * `target_token_length`. For T5 and T5.1.1:
@@ -48,8 +48,8 @@ infer_eval/utils.DatasetConfig:
 #  shuffle = True
 #  seed = 42
 #  use_cached = %USE_CACHED_TASKS
-  pack = False
-  module = %MIXTURE_OR_TASK_MODULE
+#  pack = False
+#  module = %MIXTURE_OR_TASK_MODULE
 
 seqio.Evaluator:
   logger_cls = [@seqio.PyLoggingLogger, @seqio.TensorBoardLogger, @seqio.JSONLogger]
