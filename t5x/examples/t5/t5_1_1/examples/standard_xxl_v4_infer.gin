@@ -37,6 +37,9 @@ partitioning.PjitPartitioner:
 infer_script.infer:
   checkpoint_ds_iter = False
   
+infer_script.write_inferences_to_file:
+  include_all_inputs = True
+  
 utils.SaveCheckpointConfig:
   period = 10000
 
