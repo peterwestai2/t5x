@@ -434,3 +434,32 @@ input_files = {'train':file_template.format('train'),
             'validation':file_template.format('val')}
 mask_fields =  ['plausibility']
 build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge])
+
+
+
+
+# ==================================== april 7 model_annoations ======================================
+# first datasets using model annotation -- gpt3.5_turbo and gpt4, both zs
+#
+
+'''
+New critic using Jena's template
+
+'''
+
+dataset_name = 'april7_model_annotation_turbo'
+file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/april7_model_annotations/april7_model_annotated_gpt3_turbo_zs_round1_20k_{}.tsv'
+input_files = {'train':file_template.format('train'),
+            'test':file_template.format('test'),
+            'validation':file_template.format('val')}
+mask_fields =  ['plausibility']
+build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge])
+
+
+dataset_name = 'april7_model_annotation_gpt4'
+file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/april7_model_annotations/april7_model_annotated_gpt4_zs_round1_20k_{}.tsv'
+input_files = {'train':file_template.format('train'),
+            'test':file_template.format('test'),
+            'validation':file_template.format('val')}
+mask_fields =  ['plausibility']
+build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge])
