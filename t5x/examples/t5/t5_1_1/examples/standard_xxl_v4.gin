@@ -15,7 +15,7 @@ include "t5x/examples/t5/t5_1_1/xxl.gin"
 include "t5x/configs/runs/finetune.gin"
 
 BATCH_SIZE = 64
-PERIOD=10000 % how often to save the model
+PERIOD=10000 # how often to save the model
 
 MIXTURE_OR_TASK_NAME = %gin.REQUIRED
 
