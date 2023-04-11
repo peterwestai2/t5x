@@ -16,7 +16,7 @@ include "t5x/examples/t5/t5_1_1/xxl.gin"
 include "t5x/configs/runs/finetune.gin"
 
 BATCH_SIZE = 64
-
+PERIOD = 10000 # how often to save models
 
 MIXTURE_OR_TASK_NAME = %gin.REQUIRED
 
@@ -62,7 +62,7 @@ train_eval/utils.DatasetConfig:
   
   
 utils.SaveCheckpointConfig:
-  period = 10000
+  period = %PERIOD
 
 
 infer_eval/utils.DatasetConfig:
