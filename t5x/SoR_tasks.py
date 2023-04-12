@@ -105,7 +105,7 @@ April12_logic_task_v1
 
 peterw-tpu-eu/SoR/data/logic_v1/logic_grid_puzzles.dev.qa.tsv
 #'peterw-tpu-eu/SoR/data/logic_v0/logic_grid_puzzles.dev.qa.tsv'
-file_template = 'peterw-tpu-eu/SoR/data/logic_v1/logic_grid_puzzles.{}.qa.tsv' 
+file_template = 'gs://peterw-tpu-eu/SoR/data/logic_v1/logic_grid_puzzles.{}.qa.tsv' 
 input_files = {'train':file_template.format('train'),
             'test':file_template.format('test'),
             'validation':file_template.format('dev')}
