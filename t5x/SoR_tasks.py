@@ -91,3 +91,35 @@ seqio.TaskRegistry.add(
         seqio.preprocessors.tokenize, seqio.preprocessors.append_eos
     ],
     output_features=DEFAULT_OUTPUT_FEATURES)
+
+
+
+
+'''
+
+April12_logic_task_v1
+
+-- logit puzzle task from Yuchen April 12 (updated with new format and distribution)
+
+'''
+
+peterw-tpu-eu/SoR/data/logic_v1/logic_grid_puzzles.dev.qa.tsv
+#'peterw-tpu-eu/SoR/data/logic_v0/logic_grid_puzzles.dev.qa.tsv'
+file_template = 'peterw-tpu-eu/SoR/data/logic_v1/logic_grid_puzzles.{}.qa.tsv' 
+input_files = {'train':file_template.format('train'),
+            'test':file_template.format('test'),
+            'validation':file_template.format('dev')}
+
+seqio.TaskRegistry.add(
+    "April12_logic_task",
+    seqio.TextLineDataSource(input_files,skip_header_lines=1,),
+    preprocessors=[
+        
+        functools.partial(
+          t5.data.preprocessors.parse_tsv,
+          #field_names=['head' ,'relation' ,'tail']),
+
+          field_names=['inputs','targets']),
+        seqio.preprocessors.tokenize, seqio.preprocessors.append_eos
+    ],
+    output_features=DEFAULT_OUTPUT_FEATURES)
