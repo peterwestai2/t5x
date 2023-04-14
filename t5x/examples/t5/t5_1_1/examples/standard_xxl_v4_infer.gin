@@ -43,7 +43,7 @@ infer_script.infer:
   
 infer_script.write_inferences_to_file:
   #include_all_inputs = True
-  input_fields_to_include = ['inputs','targets]
+  input_fields_to_include = ['inputs','targets']
   
 
   
