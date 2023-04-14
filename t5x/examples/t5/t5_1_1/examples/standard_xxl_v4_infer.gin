@@ -19,9 +19,11 @@ BATCH_SIZE = 64
 
 MIXTURE_OR_TASK_NAME = %gin.REQUIRED
 
+MODE = 'predict'
+
 MIXTURE_OR_TASK_NAME_EVAL = %MIXTURE_OR_TASK_NAME # eval dataset is usually the same as base, but we can specify a different one
 #BASE_LEARNING_RATE = 0.00001 # could be overridden
-TASK_FEATURE_LENGTHS = {"inputs": 128, "targets": 128}
+#TASK_FEATURE_LENGTHS = {"inputs": 128, "targets": 128}
 #TRAIN_STEPS = 1_100_000  # standard is 100000 extra steps, but could be overridden. 1_150_000 would be 1000000 pre-trained steps + 150000 fine-tuning steps.
 DROPOUT_RATE = 0.1
 #INITIAL_CHECKPOINT_PATH = "gs://t5-data/pretrained_models/t5x/t5_1_1_xxl/checkpoint_1000000" # could be overridden 
@@ -29,17 +31,19 @@ DROPOUT_RATE = 0.1
 # using Mesh Tensorflow (e.g. the public T5 / mT5 / ByT5 models), this should be
 # set to `pretraining batch_size` * `target_token_length`. For T5 and T5.1.1:
 # `2048 * 114`. For mT5: `1024 * 229`. For ByT5: `1024 * 189`.
-LOSS_NORMALIZING_FACTOR = 233472
+#LOSS_NORMALIZING_FACTOR = 233472
 
 partitioning.PjitPartitioner:
   num_partitions = 8
   
 infer_script.infer:
+  mode = %MODE
   checkpoint_ds_iter = False
   write_fn = @infer_script.write_inferences_to_file
   
 infer_script.write_inferences_to_file:
-  include_all_inputs = True
+  #include_all_inputs = True
+  input_fields_to_include = ['inputs']
   
 
   
