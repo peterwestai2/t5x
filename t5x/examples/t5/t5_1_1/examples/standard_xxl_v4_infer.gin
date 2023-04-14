@@ -59,7 +59,7 @@ infer_eval/utils.DatasetConfig:
 #  shuffle = True
 #  seed = 42
 #  use_cached = %USE_CACHED_TASKS
-#  pack = False
+  pack = False
 #  module = %MIXTURE_OR_TASK_MODULE
 
 
