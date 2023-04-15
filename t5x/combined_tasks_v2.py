@@ -481,3 +481,18 @@ input_files = {'train':file_template.format('train'),
             'validation':file_template.format('val')}
 mask_fields =  ['plausibility']
 build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge])
+
+
+
+# ==================================== april 14 to annotate ======================================
+# the full dataset, with every possible label. This allows us to score labels for annotation
+#
+
+
+dataset_name = 'april14_to_annotate'
+file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/april14_to_annotate/april14_toannotate_{}.tsv'
+input_files = {'train':file_template.format('train'),
+            'test':file_template.format('test'),
+            'validation':file_template.format('val')}
+mask_fields =  ['plausibility']
+build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge])
