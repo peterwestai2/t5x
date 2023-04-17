@@ -323,8 +323,8 @@ def build_task(input_files, task_name, mask_fields=None, p_full=0.5, field_mask_
         seqio.preprocessors.append_eos,
         
         # remove some extraneous features
-        functools.partial(
-            preprocessors.rekey, key_map={key:key for key in DEFAULT_OUTPUT_FEATURES.keys()}),
+        #functools.partial(
+        #    preprocessors.rekey, key_map={key:key for key in DEFAULT_OUTPUT_FEATURES.keys()}),
         # remove some extraneous features
         #functools.partial(
         #    preprocessors.rekey, key_map={key:key for key in ['inputs','targets']}),
