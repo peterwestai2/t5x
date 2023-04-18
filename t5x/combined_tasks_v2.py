@@ -505,3 +505,33 @@ input_files = {'train':file_template.format('train'),
             'validation':file_template.format('val')}
 mask_fields =  ['plausibility']
 build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge], tsv_fields=['index','split','label','context','query','inference','plausibility'])
+
+
+
+# ==================================== april 17 critic annotated ======================================
+# data annotated by the round2 critic
+#
+
+
+dataset_name = 'april17_critic_annotated_query'
+file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/april17_critic_annotated/april17_criticannotated_query_{}.tsv'
+input_files = {'train':file_template.format('train'),
+            'test':file_template.format('test'),
+            'validation':file_template.format('val')}
+mask_fields =  ['context','query','inference','plausibility']
+build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge])
+
+
+dataset_name = 'april17_critic_annotated_noquery'
+file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/april17_critic_annotated/april17_criticannotated_noquery_{}.tsv'
+input_files = {'train':file_template.format('train'),
+            'test':file_template.format('test'),
+            'validation':file_template.format('val')}
+mask_fields =  ['context','inference','plausibility']
+build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge])
+
+
+seqio.MixtureRegistry.add(
+  "april17_critic_annotated",
+  [('april17_critic_annotated_query',1),
+  ('april17_critic_annotated_noquery',1)])
