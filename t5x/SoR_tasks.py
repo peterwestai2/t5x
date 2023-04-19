@@ -123,3 +123,32 @@ seqio.TaskRegistry.add(
         seqio.preprocessors.tokenize, seqio.preprocessors.append_eos
     ],
     output_features=DEFAULT_OUTPUT_FEATURES)
+
+'''
+
+april19_math_scratchpad_upto_4_by_1
+
+-- Nouha's task, second version
+
+'''
+
+
+#'peterw-tpu-eu/SoR/data/math_v0/up_to_4_by_4_digit_dev.tsv'
+file_template = 'gs://peterw-tpu-eu/SoR/data/april19_math_scratchpad_upto_4_by_1/scratchpad_upto_4_by_1_prompts_{}.tsv'
+input_files = {'train':file_template.format('train'),
+            'test':file_template.format('test'),
+            'validation':file_template.format('dev')}
+
+seqio.TaskRegistry.add(
+    "april19_math_scratchpad_upto_4_by_1",
+    seqio.TextLineDataSource(input_files,skip_header_lines=1,),
+    preprocessors=[
+        
+        functools.partial(
+          t5.data.preprocessors.parse_tsv,
+          #field_names=['head' ,'relation' ,'tail']),
+
+          field_names=['inputs','targets']),
+        seqio.preprocessors.tokenize, seqio.preprocessors.append_eos
+    ],
+    output_features=DEFAULT_OUTPUT_FEATURES)
