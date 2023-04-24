@@ -16,6 +16,7 @@ include "t5x/configs/runs/finetune.gin"
 
 BATCH_SIZE = 64
 PERIOD=10000 # how often to save the model
+EVAL_PERIOD=500
 
 MIXTURE_OR_TASK_NAME = %gin.REQUIRED
 
@@ -35,7 +36,7 @@ partitioning.PjitPartitioner:
   num_partitions = 8
 
 train_script.train:
-  eval_period = 500
+  eval_period = %EVAL_PERIOD
   
 train_script.train:
   train_dataset_cfg = @train/utils.DatasetConfig()
