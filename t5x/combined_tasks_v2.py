@@ -535,3 +535,26 @@ seqio.MixtureRegistry.add(
   "april17_critic_annotated",
   [('april17_critic_annotated_query',1),
   ('april17_critic_annotated_noquery',1)])
+
+
+
+
+# ==================================== april 24 ablation ======================================
+# This creates the tasks for the model-annotation ablation (annotations by turbo)
+#
+
+  
+ 
+
+'''
+Datasets -- critic ablations
+'''
+
+for name, _ in ([('1k',1000), ('2k',2000),('5k',5000),('10k',10000)]):
+    dataset_name = 'april24_ablation_{}'.format(name)
+    file_template = 'ai2-mosaic-public/projects/symbolic-knowledge-decoding/april21_model_annotation_ablation/april11_model_annotated_gpt3_turbo_fs_round1_{}' + '_{}.tsv'.format(name)
+    input_files = {'train':file_template.format('train'),
+                'test':file_template.format('test'),
+                'validation':file_template.format('val')}
+    mask_fields =  ['plausibility']
+    build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge])
