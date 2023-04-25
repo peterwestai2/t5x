@@ -558,3 +558,27 @@ for name, _ in ([('1k',1000), ('2k',2000),('5k',5000),('10k',10000),('20k',20000
                 'validation':file_template.format('val')}
     mask_fields =  ['plausibility']
     build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge])
+    
+    
+# ==================================== april 25 turbo annotations ======================================
+# The 2 100k-sized datasets that Taylor sent over
+#
+
+
+dataset_name = 'april25_turbo_annotations_v1'
+file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/april25_turbo_annotations_100k/april25_turbo_annotations_v1_{}.tsv'
+input_files = {'train':file_template.format('train'),
+            'test':file_template.format('test'),
+            'validation':file_template.format('val')}
+mask_fields =  ['plausibility']
+build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge], tsv_fields=['context','query','inference','plausibility'])
+
+
+
+dataset_name = 'april25_turbo_annotations_v2'
+file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/april25_turbo_annotations_100k/april25_turbo_annotations_v2_{}.tsv'
+input_files = {'train':file_template.format('train'),
+            'test':file_template.format('test'),
+            'validation':file_template.format('val')}
+mask_fields =  ['plausibility']
+build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge], tsv_fields=['context','query','inference','plausibility'])
