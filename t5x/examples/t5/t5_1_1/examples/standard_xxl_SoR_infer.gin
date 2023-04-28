@@ -65,6 +65,7 @@ models.EncoderDecoderModel.decode_fn = @decoding.temperature_sample
 decoding.temperature_sample:
   max_decode_steps = 2036
   temperature = 1.0
+  topk = 0
   topp = 0.7
 
 seqio.Evaluator:
