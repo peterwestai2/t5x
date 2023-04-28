@@ -10,6 +10,7 @@ from t5x import utils
 import t5x.SoR_tasks as SoR_tasks
 import seqio
 from t5x import trainer
+from t5x import decoding
 
 include "t5x/examples/t5/t5_1_1/xxl.gin"
 include "t5x/configs/runs/infer.gin"
