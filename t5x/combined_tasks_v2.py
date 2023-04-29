@@ -582,3 +582,15 @@ input_files = {'train':file_template.format('train'),
             'validation':file_template.format('val')}
 mask_fields =  ['plausibility']
 build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge], tsv_fields=['context','query','inference','plausibility'])
+
+
+# ==================================== april 28 combined ======================================
+# combined generation/discrimination task (combining full turbo generations and turbo annotations)
+#
+
+seqio.MixtureRegistry.add(
+  "april17_critic_annotated",
+  [('april_2_gpt3turbo_v1',1),
+   ('april_2_gpt3turbo_qa',1),
+  ('april25_turbo_annotations_v1',1)])
+
