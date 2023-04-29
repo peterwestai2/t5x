@@ -586,11 +586,11 @@ build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,met
 
 # ==================================== april 28 combined ======================================
 # combined generation/discrimination task (combining full turbo generations and turbo annotations)
-#
+# we can think of this as round0 because it's before we've done any generation
 
 seqio.MixtureRegistry.add(
-  "april17_critic_annotated",
+  "april28_gen_discr_round0",
   [('april_2_gpt3turbo_v1',1),
    ('april_2_gpt3turbo_qa',1),
-  ('april25_turbo_annotations_v1',1)])
+   ('april25_turbo_annotations_v1',1)])
 
