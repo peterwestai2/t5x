@@ -602,7 +602,6 @@ seqio.MixtureRegistry.add(
 #
 #
 
-ai2-mosaic-public/projects/symbolic-knowledge-decoding/iterative/april28_data/round1/train_dataset_v1_val.tsv
 
 dataset_name = 'april_28_round1_train_v1'
 file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/iterative/april28_data/round1/train_dataset_v1_{}.tsv'
