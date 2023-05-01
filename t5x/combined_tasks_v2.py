@@ -594,3 +594,35 @@ seqio.MixtureRegistry.add(
    ('april_2_gpt3turbo_qa',1),
    ('april25_turbo_annotations_v1',1)])
 
+
+
+
+# ==================================== april 28 iterative ======================================
+# multi-round iterative training tasks
+#
+#
+
+ai2-mosaic-public/projects/symbolic-knowledge-decoding/iterative/april28_data/round1/train_dataset_v1_val.tsv
+
+dataset_name = 'april_28_round1_train_v1'
+file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/iterative/april28_data/round1/train_dataset_v1_{}.tsv'
+input_files = {'train':file_template.format('train'),
+            'test':file_template.format('test'),
+            'validation':file_template.format('val')}
+mask_fields = ['context','inference']
+build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge])
+
+
+dataset_name = 'april_28_round1_train_v1'
+file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/iterative/april28_data/round1/train_dataset_qa_{}.tsv'
+input_files = {'train':file_template.format('train'),
+            'test':file_template.format('test'),
+            'validation':file_template.format('val')}
+mask_fields = ['context','query','inference']
+build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge])
+
+
+seqio.MixtureRegistry.add(
+  "april_28_round1_train",
+  [('april_28_round1_train_v1',1),
+  ('april_28_round1_train_qa',1)])
