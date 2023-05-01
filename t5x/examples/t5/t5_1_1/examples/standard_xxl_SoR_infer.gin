@@ -24,8 +24,12 @@ MODE = 'predict'
 SPLIT = 'validation'
 
 MIXTURE_OR_TASK_NAME_EVAL = %MIXTURE_OR_TASK_NAME # eval dataset is usually the same as base, but we can specify a different one
-TASK_FEATURE_LENGTHS = {"inputs": 128, "targets": 128}
 DROPOUT_RATE = 0.0
+
+
+INPUTS_LENGTH = 1024
+TARGETS_LENGTH = 16
+TASK_FEATURE_LENGTHS = {"inputs": %INPUTS_LENGTH, "targets": %TARGETS_LENGTH} 
 
 
 partitioning.PjitPartitioner:
