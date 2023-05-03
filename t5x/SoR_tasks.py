@@ -212,7 +212,7 @@ may 1 logic tasks
 '''
 
 # max i/o lengths are 367 / 142
-file_template = 'peterw-tpu-eu/SoR/data/may1_logic_tasks/lgp.{}.tsv'
+file_template = 'gs://peterw-tpu-eu/SoR/data/may1_logic_tasks/lgp.{}.tsv'
 input_files = {'train':file_template.format('train'),
             'test':file_template.format('test'),
             'validation':file_template.format('dev')}
@@ -233,8 +233,8 @@ seqio.TaskRegistry.add(
 
 
 # max i/o lengths are 367 / 692
-file_template = 'peterw-tpu-eu/SoR/data/may1_logic_tasks/lgp.{}.tsv'
-input_files = {'train':'peterw-tpu-eu/SoR/data/may1_logic_tasks/lgp.train_reason.tsv',
+file_template = 'gs://peterw-tpu-eu/SoR/data/may1_logic_tasks/lgp.{}.tsv'
+input_files = {'train':'gs://peterw-tpu-eu/SoR/data/may1_logic_tasks/lgp.train_reason.tsv',
             'test':file_template.format('test'),
             'validation':file_template.format('dev')}
 
