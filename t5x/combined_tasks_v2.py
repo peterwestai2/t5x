@@ -669,4 +669,4 @@ input_files = {'train':file_template,
             'test':file_template,
             'validation':file_template}
 mask_fields =  ['plausibility']
-build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge], tsv_fields=['context', 'query', 'inference', 'plausibility', 'split', 'generation_round', 'plausibility_p', 'label', 'index'])
+build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge], tsv_fields=['context','query','inference','plausibility','split','generation_round','plausibility_p','index','label'])
