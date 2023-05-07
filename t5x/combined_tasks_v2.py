@@ -660,3 +660,13 @@ seqio.MixtureRegistry.add(
   [('may6_train_round0_v1',1),
   ('may6_train_round0_qa',1),
   ('april25_turbo_annotations_v1',1)])
+
+
+
+dataset_name = 'may6_train_round0_annotation'
+file_template = 'gs://ai2-mosaic-private/peter-skd-2023/iterative_runs/may6/data/round0/data_to_score.tsv'
+input_files = {'train':file_template,
+            'test':file_template,
+            'validation':file_template}
+mask_fields =  ['plausibility']
+build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge], tsv_fields=['context', 'query', 'inference', 'plausibility', 'split', 'generation_round', 'plausibility_p', 'label', 'index'])
