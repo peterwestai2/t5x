@@ -670,3 +670,30 @@ input_files = {'train':file_template,
             'validation':file_template}
 mask_fields =  ['plausibility']
 build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge], tsv_fields=['context','query','inference','plausibility','split','generation_round','plausibility_p','index','label'])
+
+
+dataset_name = 'may6_train_round1_v1'
+file_template = 'gs://ai2-mosaic-private/peter-skd-2023/iterative_runs/may6/data/round1/train_dataset_v1_{}.tsv'
+input_files = {'train':file_template.format('train'),
+            'test':file_template.format('test'),
+            'validation':file_template.format('val')}
+mask_fields = ['context','inference']
+build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge])
+
+
+dataset_name = 'may6_train_round1_qa'
+file_template = 'gs://ai2-mosaic-private/peter-skd-2023/iterative_runs/may6/data/round1/train_dataset_qa_{}.tsv'
+input_files = {'train':file_template.format('train'),
+            'test':file_template.format('test'),
+            'validation':file_template.format('val')}
+mask_fields = ['context','query','inference']
+build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge])
+
+
+seqio.MixtureRegistry.add(
+  "may6_train_round1",
+  [('may6_train_round1_v1',1),
+  ('may6_train_round1_qa',1),
+  ('april25_turbo_annotations_v1',1)])
+
+
