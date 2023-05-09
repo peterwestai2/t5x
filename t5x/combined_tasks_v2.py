@@ -705,7 +705,7 @@ seqio.MixtureRegistry.add(
 # ALSO: uses a smaller ratio for annotations
 
 
-annotation_task = 'april25_turbo_annotations_v1'
+annotation_task = 'april11_model_annotation_fs_turbo'
 
 experiment_name = 'may8'
 
@@ -740,8 +740,11 @@ for round_ in range(10):
 
 
 
-seqio.MixtureRegistry.add(
-  "may6_train_round0",
-  [('may6_train_round0_v1',2),
-  ('may6_train_round0_qa',2),
-  (annotation_task,1)])
+    seqio.MixtureRegistry.add(
+      '{}_train_round{}'.format(experiment_name, round_),
+      [('{}_train_round{}_v1'.format(experiment_name, round_),2),
+      ('{}_train_round{}_qa'.format(experiment_name,round_),2),
+      (annotation_task,1)])
+
+
+
