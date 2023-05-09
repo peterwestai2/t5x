@@ -7,7 +7,7 @@ Backup of the updates I made to the new standard tasks, while I try to fix whate
 
 #from atomic_seqio_utils import key_prefixes, fill_missing_fields, mask_each_field, combine_inputs
 
-from standard_utils_v2 import build_task
+from standard_utils_v2 import build_task, vocabulary
 
 from t5.data import preprocessors
 import t5
