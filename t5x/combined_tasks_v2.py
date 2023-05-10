@@ -723,8 +723,7 @@ seqio.TaskRegistry.add(
           t5.data.preprocessors.parse_tsv,
           #field_names=['head' ,'relation' ,'tail']),
 
-          field_names=[ 'context', 'query', 'inference', 'plausibility', 'split',
-       'generation_round', 'plausibility_p', 'inputs', 'targets']),
+          field_names=['context','query','inference','plausibility','split','generation_round','plausibility_p','inputs','targets']),
         seqio.preprocessors.tokenize, seqio.preprocessors.append_eos
     ],
     output_features=DEFAULT_OUTPUT_FEATURES)
