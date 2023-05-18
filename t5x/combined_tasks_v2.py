@@ -844,7 +844,7 @@ for round_ in range(10):
 
 
     dataset_name = '{}_train_round{}_annotation'.format(experiment_name,round_)
-    file_template = 'gs://ai2-mosaic-private/peter-skd-2023/iterative_runs/{}/data/round{}/data_to_score.tsv'.format(experiment_name, round_)
+    file_template = 'gs://ai2-mosaic-private/peter-skd-2023/iterative_runs/{}/round{}/data/data_to_score.tsv'.format(experiment_name, round_)
     input_files = {'train':file_template,
                 'test':file_template,
                 'validation':file_template}
@@ -891,7 +891,7 @@ for round_ in range(10):
 
 
     dataset_name = '{}_train_round{}_annotation'.format(experiment_name,round_)
-    file_template = 'gs://ai2-mosaic-private/peter-skd-2023/iterative_runs/{}/data/round{}/data_to_score.tsv'.format(experiment_name, round_)
+    file_template = 'gs://ai2-mosaic-private/peter-skd-2023/iterative_runs/{}/round{}/data/data_to_score.tsv'.format(experiment_name, round_)
     input_files = {'train':file_template,
                 'test':file_template,
                 'validation':file_template}
@@ -938,7 +938,7 @@ for round_ in range(10):
 
 
     dataset_name = '{}_train_round{}_annotation'.format(experiment_name,round_)
-    file_template = 'gs://ai2-mosaic-private/peter-skd-2023/iterative_runs/{}/data/round{}/data_to_score.tsv'.format(experiment_name, round_)
+    file_template = 'gs://ai2-mosaic-private/peter-skd-2023/iterative_runs/{}/round{}/data/data_to_score.tsv'.format(experiment_name, round_)
     input_files = {'train':file_template,
                 'test':file_template,
                 'validation':file_template}
@@ -995,7 +995,7 @@ for round_ in range(10):
 
 
     dataset_name = '{}_train_round{}_annotation'.format(experiment_name,round_)
-    file_template = 'gs://ai2-mosaic-private/peter-skd-2023/iterative_runs/{}/data/round{}/data_to_score.tsv'.format(experiment_name, round_)
+    file_template = 'gs://ai2-mosaic-private/peter-skd-2023/iterative_runs/{}/round{}/data/data_to_score.tsv'.format(experiment_name, round_)
     input_files = {'train':file_template,
                 'test':file_template,
                 'validation':file_template}
