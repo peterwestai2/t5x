@@ -1114,3 +1114,50 @@ for round_ in range(10):
       [('{}_train_round{}_v1'.format(experiment_name, round_),2),
       ('{}_train_round{}_qa'.format(experiment_name,round_),4),
       (annotation_task,1)])
+    
+    
+# ==================================== may19  ======================================
+# uses turbo dataset, none, human20k
+
+
+annotation_task = 'may18_critic_with_none_nonone'
+
+experiment_name = 'may19_turbo_none_human20k'
+
+
+## predefine tasks for many rounds so we don't have to keep hacking into this
+for round_ in range(10):
+
+    dataset_name = '{}_train_round{}_v1'.format(experiment_name, round_)
+    file_template = 'gs://ai2-mosaic-private/peter-skd-2023/iterative_runs/{}/round{}/data/train_dataset_v1_'.format(experiment_name, round_) +'{}.tsv'
+    input_files = {'train':file_template.format('train'),
+                'test':file_template.format('test'),
+                'validation':file_template.format('val')}
+    mask_fields = ['context','inference']
+    build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge])
+
+
+    dataset_name = '{}_train_round{}_qa'.format(experiment_name,round_)
+    file_template = 'gs://ai2-mosaic-private/peter-skd-2023/iterative_runs/{}/round{}/data/train_dataset_qa_'.format(experiment_name, round_) +'{}.tsv'
+    input_files = {'train':file_template.format('train'),
+                'test':file_template.format('test'),
+                'validation':file_template.format('val')}
+    mask_fields = ['context','query','inference']
+    build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge])
+
+
+    dataset_name = '{}_train_round{}_annotation'.format(experiment_name,round_)
+    file_template = 'gs://ai2-mosaic-private/peter-skd-2023/iterative_runs/{}/data/round{}/data_to_score.tsv'.format(experiment_name, round_)
+    input_files = {'train':file_template,
+                'test':file_template,
+                'validation':file_template}
+    mask_fields =  ['plausibility']
+    build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge], tsv_fields=['context','query','inference','plausibility','split','generation_round','plausibility_p','index','label'])
+
+
+
+    seqio.MixtureRegistry.add(
+      '{}_train_round{}'.format(experiment_name, round_),
+      [('{}_train_round{}_v1'.format(experiment_name, round_),10),
+      ('{}_train_round{}_qa'.format(experiment_name,round_),10),
+      (annotation_task,1)])
