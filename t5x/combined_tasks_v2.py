@@ -1160,7 +1160,7 @@ def add_iterative_task(annotation_task, experiment_name):
                 vocabulary=vocabulary, add_eos=True)
         }   
 
-        file_template = 'gs://ai2-mosaic-private/peter-skd-2023/iterative_runs/{}/data/round{}/inference_dataset.tsv'.format(experiment_name, round_)
+        file_template = 'gs://ai2-mosaic-private/peter-skd-2023/iterative_runs/{}/round{}/data/inference_dataset.tsv'.format(experiment_name, round_)
 
         input_files = {'train':file_template,
                     'test':file_template,
