@@ -1148,6 +1148,43 @@ def add_iterative_task(annotation_task, experiment_name):
         mask_fields =  ['plausibility']
         build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge], tsv_fields=['context','query','inference','plausibility','split','generation_round','plausibility_p','index','label'])
 
+        
+        
+        
+        DEFAULT_OUTPUT_FEATURES = {
+        "inputs":
+            seqio.Feature(
+                vocabulary=vocabulary, add_eos=True),
+        "targets":
+            seqio.Feature(
+                vocabulary=vocabulary, add_eos=True)
+        }   
+
+        file_template = 'gs://ai2-mosaic-private/peter-skd-2023/iterative_runs/{}/data/round{}/inference_dataset.tsv'.format(experiment_name, round_)
+
+        input_files = {'train':file_template,
+                    'test':file_template,
+                    'validation':file_template}
+
+        seqio.TaskRegistry.add(
+            '{}_generate_round{}'.format(experiment_name,round_),
+            seqio.TextLineDataSource(input_files,skip_header_lines=1,),
+            preprocessors=[
+
+                functools.partial(
+                  t5.data.preprocessors.parse_tsv,
+                  #field_names=['head' ,'relation' ,'tail']),
+
+                  field_names=['context','query','inference','plausibility','split','generation_round','plausibility_p','inputs','targets']),
+                seqio.preprocessors.tokenize, seqio.preprocessors.append_eos
+            ],
+            output_features=DEFAULT_OUTPUT_FEATURES)
+
+
+
+        
+        
+        
         seqio.MixtureRegistry.add(
           '{}_train_round{}'.format(experiment_name, round_),
           [('{}_train_round{}_v1'.format(experiment_name, round_),10),
