@@ -1166,6 +1166,10 @@ annotation_task = 'may18_critic_with_none_nonone'
 experiment_name = 'may19_turbo_lr0_0005_bs256_human20k'
 add_iterative_task(annotation_task, experiment_name)
 
+annotation_task = 'may18_critic_with_none_nonone'
+experiment_name = 'may19_turbo_lr0_00005_bs256_human20k'
+add_iterative_task(annotation_task, experiment_name)
+
 
 annotation_task = 'may18_critic_with_none_nonone'
 experiment_name = 'may19_turbo_lr0_0001_bs128_human20k'
