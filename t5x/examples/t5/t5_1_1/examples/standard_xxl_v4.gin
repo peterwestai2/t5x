@@ -17,6 +17,7 @@ include "t5x/configs/runs/finetune.gin"
 BATCH_SIZE = 64
 PERIOD=10000 # how often to save the model
 EVAL_PERIOD=500
+SHUFFLE=False
 
 MIXTURE_OR_TASK_NAME = %gin.REQUIRED
 
@@ -55,6 +56,7 @@ utils.create_learning_rate_scheduler:
 train/utils.DatasetConfig:
   mixture_or_task_name = %MIXTURE_OR_TASK_NAME
   split = 'train'
+  shuffle=%SHUFFLE
 
 train_eval/utils.DatasetConfig:
   mixture_or_task_name = %MIXTURE_OR_TASK_NAME_EVAL
