@@ -1219,3 +1219,33 @@ add_iterative_task(annotation_task, experiment_name)
 annotation_task = 'may18_critic_with_none_nonone'
 experiment_name = 'may19_final_iteration'
 add_iterative_task(annotation_task, experiment_name)
+
+
+
+
+# ==================================== april 2 data shuffled ======================================
+# the turbo data from taylor, but shuffled in order
+#
+
+dataset_name = 'april2_gpt3turbo_shuffled_v1'
+file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/april2_data_shuffled/v1_{}.csv'
+input_files = {'train':file_template.format('train'),
+            'test':file_template.format('test'),
+            'validation':file_template.format('val')}
+mask_fields = ['context','inference']
+build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge])
+
+
+dataset_name = 'april2_gpt3turbo_shuffled_qa'
+file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/april2_data_shuffled/qa_{}.csv'
+input_files = {'train':file_template.format('train'),
+            'test':file_template.format('test'),
+            'validation':file_template.format('val')}
+mask_fields = ['context','query','inference']
+build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge])
+
+
+seqio.MixtureRegistry.add(
+  "april2_gpt3turbo_shuffled",
+  [('april2_gpt3turbo_shuffled_v1',1),
+  ('april2_gpt3turbo_shuffled_qa',1)])
