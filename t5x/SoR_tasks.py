@@ -286,7 +286,7 @@ seqio.TaskRegistry.add(
 file_template = 'gs://ai2-mosaic-private/peter-skd-2023/data/taylor_data/june1_single/{}.tsv'
 input_files = {'train':file_template.format('train'),
             'test':file_template.format('test'),
-            'validation':file_template.format('dev')}
+            'validation':file_template.format('val')}
 
 seqio.TaskRegistry.add(
     "june1_single",
