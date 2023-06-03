@@ -1249,3 +1249,31 @@ seqio.MixtureRegistry.add(
   "april2_gpt3turbo_shuffled",
   [('april2_gpt3turbo_shuffled_v1',1),
   ('april2_gpt3turbo_shuffled_qa',1)])
+
+
+# ==================================== june 2 generation tasks ======================================
+# all the data for the generation tasks
+#
+
+
+
+
+file_template = 'gs://ai2-mosaic-private/peter-skd-2023/data/generative_task_data/data.tsv'
+
+input_files = {'train':file_template,
+            'test':file_template,
+            'validation':file_template}
+
+seqio.TaskRegistry.add(
+    'june2_downstream_generation'.format(experiment_name,round_),
+    seqio.TextLineDataSource(input_files,skip_header_lines=1,),
+    preprocessors=[
+
+        functools.partial(
+          t5.data.preprocessors.parse_tsv,
+          #field_names=['head' ,'relation' ,'tail']),
+
+          field_names=['id','inputs','targets']),
+        seqio.preprocessors.tokenize, seqio.preprocessors.append_eos
+    ],
+    output_features=DEFAULT_OUTPUT_FEATURES)
