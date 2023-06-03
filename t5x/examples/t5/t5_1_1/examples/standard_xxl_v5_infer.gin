@@ -27,7 +27,7 @@ SPLIT = 'validation'
 MIXTURE_OR_TASK_NAME_EVAL = %MIXTURE_OR_TASK_NAME # eval dataset is usually the same as base, but we can specify a different one
 DROPOUT_RATE = 0.0
 
-
+NUM_DECODES = 1
 INPUTS_LENGTH = 128
 TARGETS_LENGTH = 128
 TASK_FEATURE_LENGTHS = {"inputs": %INPUTS_LENGTH, "targets": %TARGETS_LENGTH} 
@@ -77,6 +77,7 @@ decoding.temperature_sample:
   temperature = %TEMPERATURE #1.0
   topk = 0
   topp = %TOPP #0.7
+  num_decodes = %NUM_DECODES
 
 seqio.Evaluator:
   logger_cls = [@seqio.PyLoggingLogger, @seqio.TensorBoardLogger, @seqio.JSONLogger]
