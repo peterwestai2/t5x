@@ -301,3 +301,29 @@ seqio.TaskRegistry.add(
         seqio.preprocessors.tokenize, seqio.preprocessors.append_eos
     ],
     output_features=DEFAULT_OUTPUT_FEATURES)
+
+
+
+# ==================================== delphi data======================================
+#  the delphi data to compare as pretraining
+
+ai2-mosaic-private/peter-skd-2023/data/taylor_data/delphi_data/commonsense-norm-bank/freeform/test.freeform.tsv
+
+file_template = 'gs://ai2-mosaic-private/peter-skd-2023/data/taylor_data/delphi_data/commonsense-norm-bank/freeform/{}.freeform.tsv'
+input_files = {'train':file_template.format('train'),
+            'test':file_template.format('test'),
+            'validation':file_template.format('validation')}
+
+seqio.TaskRegistry.add(
+    "june3_delphi_freeform",
+    seqio.TextLineDataSource(input_files,skip_header_lines=1,),
+    preprocessors=[
+        
+        functools.partial(
+          t5.data.preprocessors.parse_tsv,
+          #field_names=['head' ,'relation' ,'tail']),
+
+          field_names=['index','inputs','class_label','targets','input_type','pattern','source']),
+        seqio.preprocessors.tokenize, seqio.preprocessors.append_eos
+    ],
+    output_features=DEFAULT_OUTPUT_FEATURES)
