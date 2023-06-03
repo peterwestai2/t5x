@@ -307,8 +307,6 @@ seqio.TaskRegistry.add(
 # ==================================== delphi data======================================
 #  the delphi data to compare as pretraining
 
-ai2-mosaic-private/peter-skd-2023/data/taylor_data/delphi_data/commonsense-norm-bank/freeform/test.freeform.tsv
-
 file_template = 'gs://ai2-mosaic-private/peter-skd-2023/data/taylor_data/delphi_data/commonsense-norm-bank/freeform/{}.freeform.tsv'
 input_files = {'train':file_template.format('train'),
             'test':file_template.format('test'),
