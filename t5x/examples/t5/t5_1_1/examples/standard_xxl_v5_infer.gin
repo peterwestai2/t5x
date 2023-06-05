@@ -77,7 +77,7 @@ decoding.temperature_sample:
   temperature = %TEMPERATURE #1.0
   topk = 0
   topp = %TOPP #0.7
-  num_decodes = %NUM_DECODES
+  num_decodes = 10 #%NUM_DECODES
 
 seqio.Evaluator:
   logger_cls = [@seqio.PyLoggingLogger, @seqio.TensorBoardLogger, @seqio.JSONLogger]
