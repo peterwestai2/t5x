@@ -73,15 +73,11 @@ utils.DatasetConfig:
 #  module = %MIXTURE_OR_TASK_MODULE
 
 #models.EncoderDecoderModel.predict_batch_with_aux.num_decodes = 2
-#models.EncoderDecoderModel.decode_fn = @decoding.temperature_sample
-#decoding.temperature_sample:
-#  #max_decode_steps = 1024
-#  temperature = %TEMPERATURE #1.0
-#  topk = 0
-#  topp = %TOPP #0.7
-#  num_decodes = 10 #%NUM_DECODES
-models.EncoderDecoderModel.predict_batch_with_aux.num_decodes = 4
-models.EncoderDecoderModel.decode_fn = @decoding.beam_search
-decoding.beam_search.alpha = 0.6 
+models.EncoderDecoderModel.decode_fn = @decoding.temperature_sample
+decoding.temperature_sample:
+  max_decode_steps = 2#1024
+  temperature = %TEMPERATURE #1.0
+  topk = 0
+  topp = %TOPP #0.7
+  num_decodes = 10 #%NUM_DECODES
 
-decoding.beam_search.max_decode_len = 2
