@@ -84,9 +84,4 @@ models.EncoderDecoderModel.predict_batch_with_aux.num_decodes = 4
 models.EncoderDecoderModel.decode_fn = @decoding.beam_search
 decoding.beam_search.alpha = 0.6 
 
-
-
-seqio.Evaluator:
-  logger_cls = [@seqio.PyLoggingLogger, @seqio.TensorBoardLogger, @seqio.JSONLogger]
-  num_examples = 3000  # Use the first 3000 examples in the test set
-#  use_memory_cache = True
+decoding.beam_search.max_decode_len = 2
