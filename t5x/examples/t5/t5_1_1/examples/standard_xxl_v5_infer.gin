@@ -81,8 +81,8 @@ utils.DatasetConfig:
 #  topp = %TOPP #0.7
 #  num_decodes = 10 #%NUM_DECODES
 models.EncoderDecoderModel.predict_batch_with_aux.num_decodes = 4
-models.EncoderDecoderModel.decode_fn = @decode.beam_search
-decode.beam_search.alpha = 0.6 
+models.EncoderDecoderModel.decode_fn = @decoding.beam_search
+decoding.beam_search.alpha = 0.6 
 
 
 
