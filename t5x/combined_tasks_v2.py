@@ -1307,6 +1307,6 @@ input_files = {'train':file_template,
             'test':file_template,
             'validation':file_template}
 mask_fields =  ['plausibility']
-build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge], tsv_fields=['context','query','inference','plausibility','split','generation_round','plausibility_p','index','label'])
+build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge], tsv_fields=['plausibility','query','label','plausibility_p','aux','inference','index','d','context','inputs','prediction'])
 
 #gs://ai2-mosaic-private/peter-skd-2023/june6_overgenerate_experiment/data_to_score.tsv
