@@ -1310,3 +1310,14 @@ mask_fields =  ['plausibility']
 build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge], tsv_fields=['plausibility','query','label','plausibility_p','aux','inference','index','d','context','inputs','prediction'])
 
 #gs://ai2-mosaic-private/peter-skd-2023/june6_overgenerate_experiment/data_to_score.tsv
+
+
+# ==================================== june 7 full model mix ======================================
+# task that includes best generative data + none-nonone critic
+#
+
+
+seqio.MixtureRegistry.add(
+  "june7_general_task",
+  [('april2_gpt3turbo_shuffled',20),
+  ('may18_critic_with_none_nonone',1)])
