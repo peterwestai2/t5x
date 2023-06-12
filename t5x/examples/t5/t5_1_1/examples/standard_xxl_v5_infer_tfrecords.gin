@@ -1,0 +1,86 @@
+from __gin__ import dynamic_registration
+
+import __main__ as infer_script
+from t5.data import mixtures
+from t5x import models
+from t5x import partitioning
+from t5x import utils
+import t5x.combined_tasks_v2 as ct_
+import seqio
+from t5x import trainer
+from t5x import decoding
+
+include "t5x/examples/t5/t5_1_1/xxl.gin"
+include "t5x/configs/runs/infer_from_tfexample_file.gin"
+
+NUM_SHARDS=1
+SHARD_ID=0
+
+BATCH_SIZE = 128
+
+
+MIXTURE_OR_TASK_NAME = %gin.REQUIRED
+
+MODE = 'predict'
+SPLIT = 'validation'
+
+TF_EXAMPLE_FILE_PATHS = %gin.REQUIRED #['/path/to/tfds/data/dir/natural_questions_open/1.0.0/natural_questions_open-validation.tfrecord*']
+TF_EXAMPLE_FILE_TYPE = 'tfrecord'
+
+MIXTURE_OR_TASK_NAME_EVAL = %MIXTURE_OR_TASK_NAME # eval dataset is usually the same as base, but we can specify a different one
+DROPOUT_RATE = 0.0
+
+NUM_DECODES = 1
+INPUTS_LENGTH = 128
+TARGETS_LENGTH = 128
+TASK_FEATURE_LENGTHS = {"inputs": %INPUTS_LENGTH, "targets": %TARGETS_LENGTH} 
+
+TEMPERATURE = 1.0
+TOPP = 0.7
+
+
+partitioning.PjitPartitioner:
+  num_partitions = 8
+  
+infer_script.infer:
+  mode = %MODE
+  checkpoint_ds_iter = False
+  num_shards = %NUM_SHARDS
+  shard_id = %SHARD_ID
+  dataset_cfg = @utils.DatasetConfig()
+  
+  
+  
+  write_fn = @infer_script.write_inferences_to_file
+  
+infer_script.write_inferences_to_file:
+  include_all_inputs = True
+  task_ds = True
+  #input_fields_to_include = ['inputs','targets']
+  
+
+  
+utils.SaveCheckpointConfig:
+  period = 10000
+
+
+utils.DatasetConfig:
+  mixture_or_task_name = %MIXTURE_OR_TASK_NAME_EVAL
+  task_feature_lengths = %TASK_FEATURE_LENGTHS
+  split = %SPLIT
+  batch_size = %BATCH_SIZE
+#  shuffle = True
+#  seed = 42
+#  use_cached = %USE_CACHED_TASKS
+  pack = False
+#  module = %MIXTURE_OR_TASK_MODULE
+
+#models.EncoderDecoderModel.predict_batch_with_aux.num_decodes = 2
+models.EncoderDecoderModel.decode_fn = @decoding.temperature_sample
+decoding.temperature_sample:
+  #max_decode_steps = 2#1024
+  temperature = %TEMPERATURE #1.0
+  topk = 0
+  topp = %TOPP #0.7
+  num_decodes = %NUM_DECODES
+
