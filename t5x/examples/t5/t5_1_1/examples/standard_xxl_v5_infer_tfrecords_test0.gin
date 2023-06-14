@@ -24,6 +24,8 @@ BATCH_SIZE = 128
 TF_EXAMPLE_FILE_PATHS = %gin.REQUIRED #['/path/to/tfds/data/dir/natural_questions_open/1.0.0/natural_questions_open-validation.tfrecord*']
 TF_EXAMPLE_FILE_TYPE = 'tfrecord'
 
+DROPOUT_RATE = 0.0
+
 INPUTS_LENGTH = 128
 TARGETS_LENGTH = 128
 TASK_FEATURE_LENGTHS = {"inputs": %INPUTS_LENGTH, "targets": %TARGETS_LENGTH} 
