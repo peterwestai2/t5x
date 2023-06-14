@@ -1,0 +1,37 @@
+from __gin__ import dynamic_registration
+
+import __main__ as infer_script
+from t5.data import mixtures
+from t5x import models
+from t5x import partitioning
+from t5x import utils
+import t5x.combined_tasks_v2 as ct_
+import seqio
+from t5x import trainer
+from t5x import decoding
+
+include "t5x/examples/t5/t5_1_1/xxl.gin"
+include "t5x/configs/runs/infer_from_tfexample_file.gin"
+
+NUM_SHARDS=1
+SHARD_ID=0
+
+BATCH_SIZE = 128
+
+
+#MIXTURE_OR_TASK_NAME = %gin.REQUIRED
+
+TF_EXAMPLE_FILE_PATHS = %gin.REQUIRED #['/path/to/tfds/data/dir/natural_questions_open/1.0.0/natural_questions_open-validation.tfrecord*']
+TF_EXAMPLE_FILE_TYPE = 'tfrecord'
+
+INPUTS_LENGTH = 128
+TARGETS_LENGTH = 128
+TASK_FEATURE_LENGTHS = {"inputs": %INPUTS_LENGTH, "targets": %TARGETS_LENGTH} 
+
+create_task_from_tfexample_file.inputs_key = 'inputs'
+
+
+partitioning.PjitPartitioner:
+  num_partitions = 8
+  
+
