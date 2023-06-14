@@ -59,10 +59,6 @@ infer_script.write_inferences_to_file:
   #input_fields_to_include = ['inputs','targets']
   
 
-  
-utils.SaveCheckpointConfig:
-  period = 10000
-
 
 utils.DatasetConfig:
   #mixture_or_task_name = %MIXTURE_OR_TASK_NAME_EVAL
