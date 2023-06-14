@@ -28,7 +28,7 @@ INPUTS_LENGTH = 128
 TARGETS_LENGTH = 128
 TASK_FEATURE_LENGTHS = {"inputs": %INPUTS_LENGTH, "targets": %TARGETS_LENGTH} 
 
-create_task_from_tfexample_file.inputs_key = 'inputs'
+#create_task_from_tfexample_file.inputs_key = 'inputs'
 
 
 partitioning.PjitPartitioner:
