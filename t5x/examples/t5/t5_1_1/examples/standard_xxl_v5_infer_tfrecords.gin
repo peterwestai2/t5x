@@ -42,16 +42,13 @@ TOPP = 0.7
 partitioning.PjitPartitioner:
   num_partitions = 8
   
-infer_script.infer:
-  mode = %MODE
-  checkpoint_ds_iter = False
-  num_shards = %NUM_SHARDS
-  shard_id = %SHARD_ID
-  dataset_cfg = @utils.DatasetConfig()
-  
-  
-  
-  write_fn = @infer_script.write_inferences_to_file
+#infer_script.infer:
+#  mode = %MODE
+#  checkpoint_ds_iter = False
+#  num_shards = %NUM_SHARDS
+#  shard_id = %SHARD_ID
+#  dataset_cfg = @utils.DatasetConfig()
+#  write_fn = @infer_script.write_inferences_to_file
   
 infer_script.write_inferences_to_file:
   include_all_inputs = True
