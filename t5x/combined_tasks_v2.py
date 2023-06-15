@@ -1356,3 +1356,9 @@ seqio.MixtureRegistry.add(
   "june14_filtered",
   [('june14_filtered_qa',1),
   ('june14_filtered_v1',1)])
+
+
+seqio.MixtureRegistry.add(
+  "june14_general_task",
+  [('june14_filtered',2),
+  ('may18_critic_with_none_nonone',1)])
