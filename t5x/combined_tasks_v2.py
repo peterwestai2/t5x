@@ -1327,3 +1327,32 @@ seqio.MixtureRegistry.add(
   "june12_general_task",
   [('april2_gpt3turbo_shuffled',5),
   ('may18_critic_with_none_nonone',1)])
+
+
+
+# ==================================== june 14 filtered data ======================================
+# filtered at plaus = 0.8
+#
+
+dataset_name = 'june14_filtered_qa'
+file_template = 'gs://ai2-mosaic-private/peter-skd-2023/data/june14_filtered_data/train_dataset_qa_{}.tsv'
+input_files = {'train':file_template.format('train'),
+            'test':file_template.format('test'),
+            'validation':file_template.format('val')}
+mask_fields = ['context','inference']
+build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge])
+
+
+dataset_name = 'june14_filtered_v1'
+file_template = 'gs://ai2-mosaic-private/peter-skd-2023/data/june14_filtered_data/train_dataset_v1_{}.tsv'
+input_files = {'train':file_template.format('train'),
+            'test':file_template.format('test'),
+            'validation':file_template.format('val')}
+mask_fields = ['context','query','inference']
+build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge])
+
+
+seqio.MixtureRegistry.add(
+  "june14_filtered",
+  [('june14_filtered_qa',1),
+  ('june14_filtered_v1',1)])
