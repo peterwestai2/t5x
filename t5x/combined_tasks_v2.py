@@ -1410,7 +1410,7 @@ file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/SKD
 input_files = {'train':file_template.format('train'),
             'test':file_template.format('test'),
             'validation':file_template.format('val')}
-mask_fields = ['context','inference']
+mask_fields = ['context','inference','plausibility']
 build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge])
 
 
@@ -1419,7 +1419,7 @@ file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/SKD
 input_files = {'train':file_template.format('train'),
             'test':file_template.format('test'),
             'validation':file_template.format('val')}
-mask_fields = ['context','query','inference']
+mask_fields = ['context','query','inference','plausibility']
 build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge])
 
 
