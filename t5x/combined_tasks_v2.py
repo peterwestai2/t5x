@@ -1452,6 +1452,6 @@ build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,met
 
 
 seqio.MixtureRegistry.add(
-  "june19_quartile_quark",
-  [('june19_quartile_quark_qa',1),
-  ('june19_quartile_quark_v1',1)])
+  "june19_quark_quartile",
+  [('june19_quark_quartile_qa',1),
+  ('june19_quark_quartile_v1',1)])
