@@ -1398,3 +1398,32 @@ for filter_value in ['09','08','07','06','05']:
       'june18_general_task_filtered_{}'.format(filter_value),
       [('june18_filtered_{}'.format(filter_value),2),
       ('may18_critic_with_none_nonone',1)])
+    
+    
+# ==================================== june 19 QUARK ======================================
+# do multi-field prediction with quark-style training
+#
+
+
+dataset_name = 'june19_quark_qa'
+file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/SKD-2023-data/june19_greedy_annotation/train_dataset_qa_{}.tsv'
+input_files = {'train':file_template.format('train'),
+            'test':file_template.format('test'),
+            'validation':file_template.format('val')}
+mask_fields = ['context','inference']
+build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge])
+
+
+dataset_name = 'june19_quark_v1'
+file_template = 'gs://ai2-mosaic-public/projects/symbolic-knowledge-decoding/SKD-2023-data/june19_greedy_annotation/train_dataset_v1_{}.tsv'
+input_files = {'train':file_template.format('train'),
+            'test':file_template.format('test'),
+            'validation':file_template.format('val')}
+mask_fields = ['context','query','inference']
+build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge])
+
+
+seqio.MixtureRegistry.add(
+  "june19_quark",
+  [('june19_quark_qa',1),
+  ('june19_quark_v1',1)])
