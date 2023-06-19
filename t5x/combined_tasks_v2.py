@@ -1362,3 +1362,39 @@ seqio.MixtureRegistry.add(
   "june14_general_task",
   [('june14_filtered',2),
   ('may18_critic_with_none_nonone',1)])
+
+
+# ==================================== june 18 filtered data ======================================
+# filtered at various plausibilities
+#
+
+for filter_value in ['09','08','07','06','05']:
+
+    dataset_name = 'june18_filtered_qa_{}'.format(filter_value)
+    file_template = 'gs://ai2-mosaic-private/peter-skd-2023/data/june18_filtered_data_{}/train_dataset_qa_'.format(filter_value) + '{}.tsv'
+    input_files = {'train':file_template.format('train'),
+                'test':file_template.format('test'),
+                'validation':file_template.format('val')}
+    mask_fields = ['context','inference']
+    build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge])
+
+
+    dataset_name = 'june18_filtered_v1_{}'.format(filter_value)
+    file_template = 'gs://ai2-mosaic-private/peter-skd-2023/data/june18_filtered_data_{}/train_dataset_v1_'.format(filter_value) + '{}.tsv'
+    input_files = {'train':file_template.format('train'),
+                'test':file_template.format('test'),
+                'validation':file_template.format('val')}
+    mask_fields = ['context','query','inference']
+    build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge])
+
+
+    seqio.MixtureRegistry.add(
+      'june18_filtered_{}'.format(filter_value),
+      [('june18_filtered_qa_{}'.format(filter_value),1),
+      ('june18_filtered_v1_{}'.format(filter_value),1)])
+
+
+    seqio.MixtureRegistry.add(
+      'june18_general_task_filtered_{}'.format(filter_value),
+      [('june18_filtered_{}'.format(filter_value),2),
+      ('may18_critic_with_none_nonone',1)])
