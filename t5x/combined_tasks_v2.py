@@ -1368,7 +1368,7 @@ seqio.MixtureRegistry.add(
 # filtered at various plausibilities
 #
 
-for filter_value in ['09','08','07','06','05']:
+for filter_value in ['09999','0999','099','09','08','07','06','05']:
 
     dataset_name = 'june18_filtered_qa_{}'.format(filter_value)
     file_template = 'gs://ai2-mosaic-private/peter-skd-2023/data/june18_filtered_data_{}/train_dataset_qa_'.format(filter_value) + '{}.tsv'
