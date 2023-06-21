@@ -1491,3 +1491,14 @@ seqio.TaskRegistry.add(
         seqio.preprocessors.tokenize, seqio.preprocessors.append_eos
     ],
     output_features=DEFAULT_OUTPUT_FEATURES)
+
+
+
+## scoring the over generations
+dataset_name = 'june20_generation_annotation'
+file_template = 'gs://ai2-mosaic-private/peter-skd-2023/june20_generation/data_to_score.tsv'
+input_files = {'train':file_template,
+            'test':file_template,
+            'validation':file_template}
+mask_fields =  ['plausibility']
+build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge], tsv_fields=['d','index','plausibility_p','context','inference','aux','inputs','prediction','plausibility','label','query'])
