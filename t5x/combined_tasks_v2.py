@@ -1455,3 +1455,39 @@ seqio.MixtureRegistry.add(
   "june19_quark_quartile",
   [('june19_quark_quartile_qa',1),
   ('june19_quark_quartile_v1',1)])
+
+
+
+
+# ==================================== june 20 generation ======================================
+# generation on randomly sampled points from the base dataset (2 million of them...)
+#
+
+DEFAULT_OUTPUT_FEATURES = {
+    "inputs":
+        seqio.Feature(
+            vocabulary=vocabulary, add_eos=True),
+    "targets":
+        seqio.Feature(
+            vocabulary=vocabulary, add_eos=True)
+}
+
+file_template = 'gs://ai2-mosaic-private/peter-skd-2023/june20_generation/inference_dataset.tsv'
+
+input_files = {'train':file_template,
+            'test':file_template,
+            'validation':file_template}
+
+seqio.TaskRegistry.add(
+    "june20_generate",
+    seqio.TextLineDataSource(input_files,skip_header_lines=1,),
+    preprocessors=[
+        
+        functools.partial(
+          t5.data.preprocessors.parse_tsv,
+          #field_names=['head' ,'relation' ,'tail']),
+
+          field_names=['context','query','inference','plausibility','index','inputs','targets']),
+        seqio.preprocessors.tokenize, seqio.preprocessors.append_eos
+    ],
+    output_features=DEFAULT_OUTPUT_FEATURES)
