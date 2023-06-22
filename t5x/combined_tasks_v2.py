@@ -1502,3 +1502,40 @@ input_files = {'train':file_template,
             'validation':file_template}
 mask_fields =  ['plausibility']
 build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge], tsv_fields=['d','index','plausibility_p','context','inference','aux','inputs','prediction','plausibility','label','query'])
+
+
+
+
+# ==================================== june 21 expanded filtered data ======================================
+# expanded by 2M, filtered at plaus = 0.8
+#
+
+dataset_name = 'june21_generated_filtered_qa'
+file_template = 'gs://ai2-mosaic-private/peter-skd-2023/june20_generation/filtered_08/train_dataset_qa_{}.tsv'
+input_files = {'train':file_template.format('train'),
+            'test':file_template.format('test'),
+            'validation':file_template.format('val')}
+mask_fields = ['context','inference']
+build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge])
+
+
+dataset_name = 'june21_generated_filtered_v1'
+file_template = 'gs://ai2-mosaic-private/peter-skd-2023/june20_generation/filtered_08/train_dataset_v1_{}.tsv'
+input_files = {'train':file_template.format('train'),
+            'test':file_template.format('test'),
+            'validation':file_template.format('val')}
+mask_fields = ['context','query','inference']
+build_task(input_files, dataset_name ,mask_fields, metric_fns =[metrics.bleu,metrics.rouge])
+
+
+seqio.MixtureRegistry.add(
+  "june21_generated_filtered",
+  [('june21_generated_filtered_qa',1),
+  ('june21_generated_filtered_v1',1)])
+
+
+seqio.MixtureRegistry.add(
+  "june21_general_task",
+  [('june21_generated_filtered',1),
+   ('april2_gpt3turbo_shuffled', 1)
+   ('may18_critic_with_none_nonone',1)])
