@@ -1537,5 +1537,5 @@ seqio.MixtureRegistry.add(
 seqio.MixtureRegistry.add(
   "june21_general_task",
   [('june21_generated_filtered',1),
-   ('april2_gpt3turbo_shuffled', 1)
+   ('april2_gpt3turbo_shuffled', 1),
    ('may18_critic_with_none_nonone',1)])
