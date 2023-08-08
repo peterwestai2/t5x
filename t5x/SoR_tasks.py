@@ -325,3 +325,28 @@ seqio.TaskRegistry.add(
         seqio.preprocessors.tokenize, seqio.preprocessors.append_eos
     ],
     output_features=DEFAULT_OUTPUT_FEATURES)
+
+
+
+
+# ==================================== aug7 grokking ======================================
+# 3by2 data for grokking experiments
+
+file_template = 'gs://ai2-mosaic-private/peterw_SoR/data/aug7_3by2/3by2_{}.tsv'
+input_files = {'train':file_template.format('train'),
+            'test':file_template.format('test'),
+            'validation':file_template.format('dev')}
+
+seqio.TaskRegistry.add(
+    "aug7_3by2",
+    seqio.TextLineDataSource(input_files,skip_header_lines=1,),
+    preprocessors=[
+        
+        functools.partial(
+          t5.data.preprocessors.parse_tsv,
+          #field_names=['head' ,'relation' ,'tail']),
+
+          field_names=['inputs','targets']),
+        seqio.preprocessors.tokenize, seqio.preprocessors.append_eos
+    ],
+    output_features=DEFAULT_OUTPUT_FEATURES)
