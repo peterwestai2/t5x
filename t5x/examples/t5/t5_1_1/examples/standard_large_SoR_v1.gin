@@ -21,9 +21,12 @@ EVAL_PERIOD=500
 
 MIXTURE_OR_TASK_NAME = %gin.REQUIRED
 
+INPUTS_LENGTH = 32
+TARGETS_LENGTH = 1024
+
 MIXTURE_OR_TASK_NAME_EVAL = %MIXTURE_OR_TASK_NAME # eval dataset is usually the same as base, but we can specify a different one
 BASE_LEARNING_RATE = 0.00001 # could be overridden
-TASK_FEATURE_LENGTHS = {"inputs": 1024, "targets": 8} # compute automatically {"inputs": 512, "targets": 128}
+TASK_FEATURE_LENGTHS = {"inputs": %INPUTS_LENGTH, "targets": %TARGETS_LENGTH} # compute automatically {"inputs": 512, "targets": 128}
 TRAIN_STEPS = 1_464_000  # 1_464_000 is the original 1_164_000 + 300k extra
 DROPOUT_RATE = 0.1
 INITIAL_CHECKPOINT_PATH = "gs://t5-data/pretrained_models/t5x/flan_t5_large/checkpoint_1164000" # could be overridden 
